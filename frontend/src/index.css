@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=Lato&display=swap');
+
+@theme {
+    --color-primary: #1E40AF;
+    --color-secondary: #F59E0B;
+    --color-accent: #fd1d26;
+
+    --font-fira: "Fira Sans", sans-serif;
+    --font-lato: "Lato", sans-serif;
+}
+
+html, body { margin: 0; padding: 0; height: 100%; }
