@@ -6,8 +6,6 @@ import CheckoutButton from "./components/CheckoutButton.tsx";
 import {useAuth} from "./hooks/UseAuth.tsx";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
-import {loadStripe} from "@stripe/stripe-js";
-import {Elements} from "@stripe/react-stripe-js";
 
 function App() {
     const { token, user, logout, isAuthenticated } = useAuth();
@@ -29,7 +27,6 @@ function App() {
         navigate("/login");
     };
 
-    const stripePromise = loadStripe("pk_test_51S7cLFFoXeWvCNsZi9TYS2tmQQZMB36SZu2hQjk2tYVgvLZUzqrXIDBwkakbOmAoXw9lVcALpDOEQLfna8D5JaR900UUylv17Y");
 
     return (
     <div className="flex flex-col min-h-screen">
@@ -53,10 +50,6 @@ function App() {
                           >
                               Logout
                           </button>
-
-                          <Elements stripe={stripePromise}>
-
-                          </Elements>
                       </>
                   )}
               </div>
