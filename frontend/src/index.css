@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=Lato&display=swap');
 
 @theme {
     --color-primary: #1E40AF;

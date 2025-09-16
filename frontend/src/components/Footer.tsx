@@ -20,7 +20,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
         
         {/* Left - Brand */}
-        <div className="mb-4 md:mb-0 text-lg font-bold">Brand</div>
+        <div className="mb-4 md:mb-0 text-lg font-bold">Camera 101</div>
 
         {/* Center - Made by + email */}
         <div className="text-center">
@@ -43,18 +43,10 @@ export default function Footer() {
           </button>
         </div>
 
-        {/* Right - 3 items (all copy email) */}
-        <div className="flex space-x-6 mt-4 md:mt-0">
-          {[1, 2, 3].map((n) => (
-            <button
-              key={n}
-              onClick={handleCopy}
-              className="text-slate-300 hover:text-sky-400 transition-colors text-sm"
-            >
-              Item {n}
-            </button>
-          ))}
-        </div>
+          <div>
+
+          </div>
+
       </div>
 
       {/* Toast */}
