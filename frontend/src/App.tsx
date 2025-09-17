@@ -6,6 +6,8 @@ import CheckoutButton from "./components/CheckoutButton.tsx";
 import {useAuth} from "./hooks/UseAuth.tsx";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
+import LessonCategories from "./components/LessonCategories.tsx";
+
 
 function App() {
     const { token, user, logout, isAuthenticated } = useAuth();
@@ -27,12 +29,16 @@ function App() {
         navigate("/login");
     };
 
-
     return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="mt-20">
         <Home />
+        <section className="h-screen bg-red-500">
+
+        </section>
+        <section className="flex flex-col justify-center items-center min-h-screen bg-black">
+            <LessonCategories />
+        </section>
           {!token ? (
               <div className="space-y-6">
                   <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition" onClick={() => navigate("/register")}>REGISTER</button>
@@ -54,7 +60,6 @@ function App() {
                   )}
               </div>
           )}
-      </div>
       <Footer />
     </div>
   )
