@@ -1,12 +1,42 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
 @theme {
     --color-primary: #1E40AF;
-    --color-secondary: #F59E0B;
-    --color-accent: #fd1d26;
+    --color-secondary: #7D7C7A;
+    --color-accent: #8C1C13;
 
     --font-fira: "Fira Sans", sans-serif;
     --font-lato: "Lato", sans-serif;
+    --font-rama: "Ramabhadra";
+    --font-boldie: "Boldonse";
 }
 
-html, body { margin: 0; padding: 0; height: 100%; }
+.blured-bg{
+    background-image: url("./assets/images/bluredbg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#bg-img {
+    background-image: url("./assets/images/bg4.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.leaves-bg{
+    background-image: url('./assets/images/bg6.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.hollow-text {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* fallback */
+}
+
+html, body { margin: 0; padding: 0; height: 100%; scroll-behavior: smooth ; background-color: white}
