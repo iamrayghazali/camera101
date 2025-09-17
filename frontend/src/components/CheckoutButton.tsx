@@ -1,5 +1,6 @@
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY!);
 
@@ -34,7 +35,7 @@ export default function CheckoutButton({ jwtToken }: CheckoutButtonProps) {
             onClick={handleClick}
             className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-500 transition"
         >
-            Buy Course
+            <AiOutlineShoppingCart className="text-4xl"/> Buy Course
         </button>
     );
 }
