@@ -1,19 +1,5 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function Footer() {
-  const [copied, setCopied] = useState(false);
-  const email = "ghazali.raydan@gmail.com";
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(email);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy:", err);
-    }
-  };
 
   return (
     <footer className="w-full bg-slate-900 text-slate-200 py-6 mt-auto relative shadow-inner">
@@ -22,7 +8,7 @@ export default function Footer() {
         {/* Left - Brand */}
         <div className="mb-4 md:mb-0 text-lg font-bold">Camera 101</div>
 
-        {/* Center - Made by + email */}
+        {/* Center - Made by + Rights served */}
         <div className="text-center">
           <p>
             made by |{" "}
@@ -35,34 +21,15 @@ export default function Footer() {
               this guy
             </a>
           </p>
-          <button
-            onClick={handleCopy}
-            className="mt-2 text-sm text-slate-300 hover:text-sky-400 transition-colors"
+          <p
+            className="mt-2 text-sm text-slate-300 "
           >
-            {email}
-          </button>
+              © 2025 CAMERA101. All rights reserved.
+          </p>
         </div>
-
-          <div>
-
-          </div>
-
+            {/* Placeholder */}
+          <div></div>
       </div>
-
-      {/* Toast */}
-      <AnimatePresence>
-        {copied && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.3 }}
-            className="absolute bottom-2 right-2 bg-sky-600 text-white px-3 py-1 rounded-lg text-sm shadow-lg"
-          >
-            copied!
-          </motion.div>
-        )}
-      </AnimatePresence>
     </footer>
   );
 }
