@@ -7,6 +7,7 @@ import Register from "./pages/Register.tsx";
 import Login from "./pages/Login.tsx";
 import {AuthProvider} from "./hooks/UseAuth.tsx";
 import FAQ from "./pages/FAQ.tsx";
+import Lessons from "./pages/lessons/Lessons.tsx";
 
 const router = createBrowserRouter([
     { path: "/", element: <App /> },
@@ -14,7 +15,11 @@ const router = createBrowserRouter([
     { path: "/register", element: <Register /> },
     { path: "/faq", element: <FAQ /> },
     { path: "/about", element: <NotFound /> },
-    { path: "/learn", element: <NotFound /> },
+
+    // Lessons parent
+    { path: "/learn", element: <Lessons /> },
+    /*{ path: "/learn/iphone/:id", element: <IPhoneLessons /> },*/
+
     { path: "*", element: <NotFound /> },
 ]);
 
