@@ -1,6 +1,6 @@
 import iphoneIMG from "../assets/cameras/iphone.webp"
 import dslrIMG from "../assets/cameras/dslr.jpg"
-import mirrorlessIMG from "../assets/cameras/mirrorless.jpg"
+import mirrorlessIMG from "../assets/cameras/mirrorless.jpeg"
 import { AiFillRightCircle } from "react-icons/ai";
 import {Link} from "react-router-dom";
 
