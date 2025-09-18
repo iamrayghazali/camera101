@@ -9,9 +9,9 @@ import { AiFillQuestionCircle } from "react-icons/ai";
 
 
 const navItems = [
-  { label: "", to: "/", icon:  <AiFillHome className="text-2xl mr-2" />},
-  { label: "", to: "/learn", icon: <AiFillFolderOpen  className="text-2xl mr-2" />  },
-    { label: "", to: "/FAQ", icon: <AiFillQuestionCircle  className="text-2xl mr-2" /> },
+  { label: "Home", to: "/", icon:  <AiFillHome className="text-2xl mr-2" />},
+  { label: "Learn", to: "/learn", icon: <AiFillFolderOpen  className="text-2xl mr-2" />  },
+    { label: "FAQ", to: "/FAQ", icon: <AiFillQuestionCircle  className="text-2xl mr-2" /> },
 ];
 
 export default function Navbar() {
@@ -28,22 +28,22 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex md:justify-center md:items-center md:flex-cols space-x-4">
             {navItems.map((it) => (
-              <Link
-                key={it.label}
-                to={it.to}
-                className="text-black text-lg font-bold text-center flex felx-row content-center items-center hover:text-white transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100"
-              >
-                  {it.icon}
-                  {it.label}
-              </Link>
+                <div className="tooltip tooltip-bottom" data-tip={it.label} key={it.label}>
+                    <Link
+                        to={it.to}
+                        className="p-0 text-black text-xl font-bold text-center flex felx-row content-center items-center hover:text-black transition-colors"
+                    >
+                        {it.icon}
+                    </Link>
+                </div>
             ))}
               { isAuthenticated ? (
                   <Link
                       to={"/"}
                       onClick={() => logout()}
-                      className="text-white text-lg font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100"
+                      className="hollow-text text-extrabold leaves-bg text-lg font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-black after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100"
                   >
                       Logout
                   </Link>
@@ -51,13 +51,13 @@ export default function Navbar() {
                   <>
                       <Link
                           to={"/register"}
-                          className="text-white text-lg font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100"
+                          className="hollow-text text-extrabold leaves-bg text-xl font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-black after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100"
                       >
                           Register
                       </Link>
                       <Link
                           to={"/login"}
-                          className="text-white text-lg font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100"
+                          className="text-black text-xl font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-black after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100"
                       >
                           Login
                       </Link>
