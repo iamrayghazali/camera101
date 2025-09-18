@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import {createContext, useContext, useState, useEffect, type ReactNode, useCallback} from "react";
 import axios from "axios";
 
 type AuthContextType = {
@@ -31,6 +31,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             }
         }
     }, []);
+
+    const checkIfUserHasPaid = () => {
+
+    }
 
     const login = async (username: string, password: string): Promise<boolean> => {
         setLoading(true);
