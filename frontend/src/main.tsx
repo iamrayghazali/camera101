@@ -8,6 +8,7 @@ import Login from "./pages/Login.tsx";
 import {AuthProvider} from "./hooks/UseAuth.tsx";
 import FAQ from "./pages/FAQ.tsx";
 import Lessons from "./pages/lessons/Lessons.tsx";
+import IPhoneLessons from "./pages/lessons/iphone/IPhoneLessons.tsx";
 
 const router = createBrowserRouter([
     { path: "/", element: <App /> },
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
 
     // Lessons parent
     { path: "/learn", element: <Lessons /> },
-    /*{ path: "/learn/iphone/:id", element: <IPhoneLessons /> },*/
+    { path: "/learn/iphone/", element: <IPhoneLessons /> },
 
     { path: "*", element: <NotFound /> },
 ]);
