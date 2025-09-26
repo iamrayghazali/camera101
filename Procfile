@@ -1,1 +1,1 @@
-web: cd backend && gunicorn camera101.wsgi:application --bind 0.0.0.0:$PORT
+web: ./backend/start.sh
