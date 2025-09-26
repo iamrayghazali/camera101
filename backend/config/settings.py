@@ -16,22 +16,24 @@ DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
 # Handle both production and Railway domains
 production_hosts = os.getenv('ALLOWED_HOSTS', 'learncamera101.com,www.learncamera101.com').split(',')
-railway_host = os.getenv('RAILWAY_PUBLIC_DOMAIN', '')
 
 ALLOWED_HOSTS = production_hosts
-if railway_host:
-    ALLOWED_HOSTS.append(railway_host)
-# For Railway deployment, also allow the generated domain pattern
+# For Railway deployment, also allow Railway domains
 if os.getenv('RAILWAY_ENVIRONMENT'):
-    ALLOWED_HOSTS.append('*')  # Temporary for Railway - you can be more specific later
+    ALLOWED_HOSTS.extend(['nxv40dv9.up.railway.app', '.railway.app'])
 
-# CORS SETTINGS - Include Railway domain
+# CORS SETTINGS - Allow your Vercel frontend and Railway
 CORS_ALLOWED_ORIGINS = [
     "https://learncamera101.com",
     "https://www.learncamera101.com",
+    "http://localhost:3000",  # Local React development
 ]
-if railway_host:
-    CORS_ALLOWED_ORIGINS.append(f"https://{railway_host}")
+
+# For Railway, also allow the Railway domain
+if os.getenv('RAILWAY_ENVIRONMENT'):
+    CORS_ALLOWED_ORIGINS.extend([
+        "https://nxv40dv9.up.railway.app",
+    ])
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -42,7 +44,7 @@ STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
 
 # URL SETTINGS - PRODUCTION READY
 FRONTEND_URL = os.getenv('FRONTEND_URL', 'https://learncamera101.com')
-BACKEND_URL = os.getenv('BACKEND_URL', 'https://your-backend-domain.com')
+BACKEND_URL = os.getenv('BACKEND_URL', 'https://nxv40dv9.up.railway.app')
 
 DATABASES = {
     "default": dj_database_url.config(
@@ -52,8 +54,8 @@ DATABASES = {
     )
 }
 
-# SECURITY MIDDLEWARE - SSL redirect disabled for Railway health checks
-SECURE_SSL_REDIRECT = os.getenv('RAILWAY_ENVIRONMENT') is None  # Only redirect in production
+# SECURITY MIDDLEWARE - SSL redirect disabled for Railway
+SECURE_SSL_REDIRECT = os.getenv('RAILWAY_ENVIRONMENT') is None
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
