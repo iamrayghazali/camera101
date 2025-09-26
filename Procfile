@@ -1,1 +1,1 @@
-web: cd backend && python manage.py runserver 0.0.0.0:$PORT
+web: cd backend && gunicorn project_name.wsgi:application --bind 0.0.0.0:$PORT
