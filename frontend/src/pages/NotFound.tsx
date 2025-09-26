@@ -1,45 +1,51 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import { AiOutlineHome } from "react-icons/ai";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col min-h-screen">
-    <Navbar />
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6">
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="text-6xl font-extrabold text-slate-800 mb-4"
-      >
-        Oops!
-      </motion.h1>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.4 }}
-        className="text-lg text-slate-600 mb-6"
-      >
-        Page not found.  
-      </motion.p>
-
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.4, duration: 0.3 }}
-      >
-        <Link
-          to="/"
-          className="px-5 py-2 rounded-lg bg-sky-600 text-white hover:bg-sky-700 transition-colors shadow"
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-base-200 to-base-300">
+      
+      <main className="flex-grow flex items-center justify-center p-4">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+          className="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 text-center"
         >
-          Go back home
-        </Link>
-      </motion.div>
-    </div>
-      <Footer />
+          <div className="mb-6">
+            <h1 className="text-4xl font-rama font-bold text-gray-900 mb-2">
+              404
+            </h1>
+            <p className="text-lg text-gray-600">
+              Page not found
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <p className="text-gray-500">
+              The page you're looking for doesn't exist. Let's get you back on track!
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 mt-6">
+              <Link
+                to="/"
+                className="btn btn-primary flex-1 flex items-center justify-center gap-2"
+              >
+                <AiOutlineHome className="text-lg" />
+                Go Home
+              </Link>
+              <Link
+                to="/learn"
+                className="btn btn-outline text-primary flex-1 flex items-center justify-center gap-2"
+              >
+                Browse Courses
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      </main>
+      
     </div>
   );
 }
