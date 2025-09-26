@@ -32,9 +32,12 @@ FRONTEND_URL = os.getenv('FRONTEND_URL', 'https://learncamera101.com')
 BACKEND_URL = os.getenv('BACKEND_URL', 'https://your-backend-domain.com')
 
 DATABASES = {
-    "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
-
 # SECURITY MIDDLEWARE
 SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
