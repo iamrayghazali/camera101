@@ -1,0 +1,10 @@
+{
+    "build": {
+      "builder": "RAILPACK"
+    },
+    "deploy": {
+      "startCommand": "cd backend && python manage.py runserver 0.0.0.0:$PORT",
+      "healthcheckPath": "/api/",
+      "healthcheckTimeout": 100
+    }
+  }
