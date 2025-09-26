@@ -1,7 +1,7 @@
 {
   "$schema": "https://railway.com/railway.schema.json",
   "build": {
-    "builder": "python",
+    "builder": "RAILPACK",
     "buildCommand": "cd backend && python3 manage.py migrate && python3 manage.py collectstatic --noinput"
   },
   "deploy": {
@@ -9,6 +9,6 @@
     "startCommand": "cd backend && gunicorn camera101.wsgi:application --bind 0.0.0.0:$PORT",
     "healthcheckPath": "/",
     "healthcheckTimeout": 100,
-    "restartPolicyType": "never"
+    "restartPolicyType": "ON_FAILURE"
   }
 }
