@@ -16,3 +16,4 @@ stripe==12.5.1
 typing_extensions==4.15.0
 urllib3==2.5.0
 gunicorn==20.1.0
+dj-database-url==2.3.0
