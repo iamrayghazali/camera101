@@ -4,10 +4,8 @@
     "builder": "RAILPACK"
   },
   "deploy": {
-    "preDeployCommand": "cd backend && python3 manage.py migrate",
-    "startCommand": "cd backend && gunicorn camera101.wsgi:application --bind 0.0.0.0:$PORT",
-    "healthcheckPath": "/",
-    "healthcheckTimeout": 100,
+    "preDeployCommand": "python3 manage.py migrate",
+    "startCommand": "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT",
     "restartPolicyType": "ON_FAILURE"
   }
 }
