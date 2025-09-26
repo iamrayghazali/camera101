@@ -1,0 +1,497 @@
+# Camera101 .gitignore
+
+# Environment variables (CRITICAL - Never commit these)
+.env
+.env.local
+.env.production
+.env.staging
+.env.development
+
+# Private documentation (Contains sensitive information)
+docs-private/
+private-docs/
+production-docs/
+security-docs/
+
+# Secrets and credentials
+secrets/
+credentials/
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# Database files
+*.db
+*.sqlite3
+*.sqlite
+
+# Logs
+*.log
+logs/
+log/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Build outputs
+dist/
+build/
+out/
+
+# Coverage reports
+coverage/
+*.lcov
+.nyc_output
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env.test
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Production files
+production-config/
+deployment-secrets/
+server-configs/
+
+# Monitoring and analytics
+monitoring/
+analytics/
+metrics/
+
+# Security files
+security/
+firewall/
+ssl-certs/
+
+# Backup directories
+backups/
+backup/
+
+# Cache directories
+cache/
+.cache/
+
+# Test files
+test-results/
+coverage/
+
+# Documentation that should not be public
+internal-docs/
+confidential-docs/
+sensitive-docs/
+
+# API keys and tokens
+api-keys/
+tokens/
+keys/
+
+# Database dumps
+*.sql
+*.dump
+
+# Compressed files
+*.zip
+*.tar.gz
+*.rar
+
+# Local development files
+local/
+dev/
+development/
+
+# Production-specific files
+prod/
+production/
+live/
+
+# Staging files
+staging/
+stage/
+
+# Deployment files
+deploy/
+deployment/
+scripts/
+
+# Configuration files with secrets
+config/secrets/
+secrets/
+private-config/
+
+# SSL certificates
+ssl/
+certs/
+certificates/
+
+# Docker secrets
+docker-secrets/
+
+# Kubernetes secrets
+k8s-secrets/
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+
+# Ansible vault files
+vault.yml
+vault.yaml
+
+# Jenkins files
+.jenkins/
+
+# CI/CD secrets
+ci-secrets/
+cd-secrets/
+
+# Monitoring secrets
+monitoring-secrets/
+
+# Alerting secrets
+alerting-secrets/
+
+# Log aggregation secrets
+logging-secrets/
+
+# Backup secrets
+backup-secrets/
+
+# Disaster recovery files
+disaster-recovery/
+dr-files/
+
+# Incident response files
+incident-response/
+ir-files/
+
+# Security audit files
+security-audit/
+audit-files/
+
+# Compliance files
+compliance/
+compliance-files/
+
+# Legal files
+legal/
+legal-files/
+
+# Contract files
+contracts/
+contract-files/
+
+# Financial files
+financial/
+financial-files/
+
+# HR files
+hr/
+hr-files/
+
+# Business files
+business/
+business-files/
+
+# Strategic files
+strategy/
+strategic-files/
+
+# Competitive files
+competitive/
+competitive-files/
+
+# Market research files
+market-research/
+research-files/
+
+# Customer data files
+customer-data/
+customer-files/
+
+# Vendor files
+vendor/
+vendor-files/
+
+# Partner files
+partner/
+partner-files/
+
+# Supplier files
+supplier/
+supplier-files/
+
+# Third-party files
+third-party/
+third-party-files/
+
+# Integration files
+integration/
+integration-files/
+
+# API documentation with secrets
+api-docs-secrets/
+
+# Database documentation with secrets
+db-docs-secrets/
+
+# Infrastructure documentation with secrets
+infra-docs-secrets/
+
+# Network documentation with secrets
+network-docs-secrets/
+
+# Security documentation with secrets
+security-docs-secrets/
+
+# Compliance documentation with secrets
+compliance-docs-secrets/
+
+# Audit documentation with secrets
+audit-docs-secrets/
+
+# Incident documentation with secrets
+incident-docs-secrets/
+
+# Disaster recovery documentation with secrets
+dr-docs-secrets/
+
+# Business continuity documentation with secrets
+bc-docs-secrets/
+
+# Risk management documentation with secrets
+risk-docs-secrets/
+
+# Governance documentation with secrets
+governance-docs-secrets/
+
+# Policy documentation with secrets
+policy-docs-secrets/
+
+# Procedure documentation with secrets
+procedure-docs-secrets/
+
+# Process documentation with secrets
+process-docs-secrets/
+
+# Workflow documentation with secrets
+workflow-docs-secrets/
+
+# Template documentation with secrets
+template-docs-secrets/
+
+# Checklist documentation with secrets
+checklist-docs-secrets/
+
+# Guideline documentation with secrets
+guideline-docs-secrets/
+
+# Standard documentation with secrets
+standard-docs-secrets/
+
+# Specification documentation with secrets
+spec-docs-secrets/
+
+# Requirement documentation with secrets
+requirement-docs-secrets/
+
+# Design documentation with secrets
+design-docs-secrets/
+
+# Architecture documentation with secrets
+architecture-docs-secrets/
+
+# System documentation with secrets
+system-docs-secrets/
+
+# Application documentation with secrets
+application-docs-secrets/
+
+# Service documentation with secrets
+service-docs-secrets/
+
+# Component documentation with secrets
+component-docs-secrets/
+
+# Module documentation with secrets
+module-docs-secrets/
+
+# Library documentation with secrets
+library-docs-secrets/
+
+# Framework documentation with secrets
+framework-docs-secrets/
+
+# Tool documentation with secrets
+tool-docs-secrets/
+
+# Utility documentation with secrets
+utility-docs-secrets/
+
+# Helper documentation with secrets
+helper-docs-secrets/
+
+# Plugin documentation with secrets
+plugin-docs-secrets/
+
+# Extension documentation with secrets
+extension-docs-secrets/
+
+# Addon documentation with secrets
+addon-docs-secrets/
+
+# Package documentation with secrets
+package-docs-secrets/
+
+# Dependency documentation with secrets
+dependency-docs-secrets/
+
+# Library documentation with secrets
+library-docs-secrets/
+
+# Framework documentation with secrets
+framework-docs-secrets/
+
+# Tool documentation with secrets
+tool-docs-secrets/
+
+# Utility documentation with secrets
+utility-docs-secrets/
+
+# Helper documentation with secrets
+helper-docs-secrets/
+
+# Plugin documentation with secrets
+plugin-docs-secrets/
+
+# Extension documentation with secrets
+extension-docs-secrets/
+
+# Addon documentation with secrets
+addon-docs-secrets/
+
+# Package documentation with secrets
+package-docs-secrets/
+
+# Dependency documentation with secrets
+dependency-docs-secrets/
+
