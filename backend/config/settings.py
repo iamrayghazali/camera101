@@ -13,13 +13,26 @@ load_dotenv()
 # SECURITY SETTINGS - PRODUCTION READY
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-fallback-key')
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'learncamera101.com,www.learncamera101.com').split(',')
 
-# CORS SETTINGS - SECURE
+# Handle both production and Railway domains
+production_hosts = os.getenv('ALLOWED_HOSTS', 'learncamera101.com,www.learncamera101.com').split(',')
+railway_host = os.getenv('RAILWAY_PUBLIC_DOMAIN', '')
+
+ALLOWED_HOSTS = production_hosts
+if railway_host:
+    ALLOWED_HOSTS.append(railway_host)
+# For Railway deployment, also allow the generated domain pattern
+if os.getenv('RAILWAY_ENVIRONMENT'):
+    ALLOWED_HOSTS.append('*')  # Temporary for Railway - you can be more specific later
+
+# CORS SETTINGS - Include Railway domain
 CORS_ALLOWED_ORIGINS = [
     "https://learncamera101.com",
     "https://www.learncamera101.com",
 ]
+if railway_host:
+    CORS_ALLOWED_ORIGINS.append(f"https://{railway_host}")
+
 CORS_ALLOW_CREDENTIALS = True
 
 # STRIPE SETTINGS
@@ -39,8 +52,8 @@ DATABASES = {
     )
 }
 
-# SECURITY MIDDLEWARE
-SECURE_SSL_REDIRECT = True
+# SECURITY MIDDLEWARE - SSL redirect disabled for Railway health checks
+SECURE_SSL_REDIRECT = os.getenv('RAILWAY_ENVIRONMENT') is None  # Only redirect in production
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
