@@ -10,6 +10,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 import stripe
+from django.conf import settings
 
 from .serializers import RegisterSerializer, MyTokenObtainPairSerializer
 from django.contrib.auth import get_user_model
@@ -50,9 +51,9 @@ class CreatePaymentLinkView(APIView):
         # Your Stripe Payment Link URL
         payment_link_url = "https://buy.stripe.com/7sY7sK3745RraCAgK9efC01"
         
-        # Add user info as URL parameters for tracking
-        success_url = f"http://localhost:8000/api/payments/payment-success/?course={course.slug}&user_id={user.id}"
-        cancel_url = "http://localhost:5173/cancel"
+        # Use environment variables instead of hardcoded URLs
+        success_url = f"{settings.BACKEND_URL}/api/payments/payment-success/?course={course.slug}&user_id={user.id}"
+        cancel_url = f"{settings.FRONTEND_URL}/cancel"
         
         # Redirect to Stripe Payment Link with success URL
         final_url = f"{payment_link_url}?success_url={success_url}&cancel_url={cancel_url}"
@@ -173,8 +174,8 @@ class HandlePaymentSuccessView(APIView):
             )
             
             # Redirect to the frontend success page
-            return HttpResponseRedirect(f"http://localhost:5173/success?course={course.slug}")
-            
+            return HttpResponseRedirect(f"{settings.FRONTEND_URL}/success?course={course.slug}")
+                    
         except User.DoesNotExist:
             return Response({"detail": "User not found"}, status=404)
         except Course.DoesNotExist:

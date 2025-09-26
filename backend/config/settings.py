@@ -1,89 +1,36 @@
+# Production-ready Django settings
 import os
 from dotenv import load_dotenv
 from pathlib import Path
 from datetime import timedelta
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8g5tqs*)8cxk^gju+)0d*0ff-x4g5cpg7grc&r74k-1&+2r1b4'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = []
-
-CORS_ALLOW_ALL_ORIGINS = True
-
-
+# Load environment variables
 load_dotenv()
 
+# SECURITY SETTINGS - PRODUCTION READY
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-fallback-key')
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'learncamera101.com,www.learncamera101.com').split(',')
+
+# CORS SETTINGS - SECURE
+CORS_ALLOWED_ORIGINS = [
+    "https://learncamera101.com",
+    "https://www.learncamera101.com",
+]
+CORS_ALLOW_CREDENTIALS = True
+
+# STRIPE SETTINGS
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLIC_KEY")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
 
-# Application definition
-AUTH_USER_MODEL = "payments.User"
+# URL SETTINGS - PRODUCTION READY
+FRONTEND_URL = os.getenv('FRONTEND_URL', 'https://learncamera101.com')
+BACKEND_URL = os.getenv('BACKEND_URL', 'https://your-backend-domain.com')
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'payments',
-    'courses',
-    'corsheaders',
-]
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'AUTH_HEADER_TYPES': ('Bearer',),
-}
-
-MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # must be first
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-ROOT_URLCONF = 'config.urls'
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
-
-WSGI_APPLICATION = 'config.wsgi.application'
-
-
-# Database
+# DATABASE - PRODUCTION READY
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -91,47 +38,41 @@ DATABASES = {
         'USER': os.getenv("POSTGRES_USER"),
         'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
         'HOST': os.getenv("POSTGRES_HOST"),
-        'PORT': os.getenv("POSTGRES_PORT"),
+        'PORT': os.getenv("POSTGRES_PORT", "5432"),
     }
 }
 
-# Password validation
+# SECURITY MIDDLEWARE
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+# LOGGING
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'django_errors.log',
+        },
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+}
 
+# STATIC FILES
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Internationalization
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-
-STATIC_URL = 'static/'
-
-# Media files (uploaded images)
+# MEDIA FILES
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# Default primary key field type
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

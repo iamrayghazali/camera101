@@ -38,7 +38,7 @@ export default function FAQ() {
                             <div className="collapse-content">
                                 <p className="text-gray-600 leading-relaxed">
                                     Once you purchase a course, you have lifetime access. You can learn at your own pace and 
-                                    revisit the material anytime, even years from now.
+                                    revisit the material anytime.
                                 </p>
                             </div>
                         </div>
@@ -59,24 +59,11 @@ export default function FAQ() {
                         <div className="collapse collapse-arrow join-item border border-gray-200 bg-white shadow-sm">
                             <input type="radio" name="faq-accordion" />
                             <div className="collapse-title text-lg font-semibold text-gray-900">
-                                Can I get a refund if I'm not satisfied?
-                            </div>
-                            <div className="collapse-content">
-                                <p className="text-gray-600 leading-relaxed">
-                                    Yes! We offer a 30-day money-back guarantee. If you're not completely satisfied 
-                                    with your course, we'll refund your purchase, no questions asked.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="collapse collapse-arrow join-item border border-gray-200 bg-white shadow-sm">
-                            <input type="radio" name="faq-accordion" />
-                            <div className="collapse-title text-lg font-semibold text-gray-900">
                                 What's included in the free preview lessons?
                             </div>
                             <div className="collapse-content">
                                 <p className="text-gray-600 leading-relaxed">
-                                    Free preview lessons give you access to the first lesson of each course, allowing you to 
+                                    Free preview lessons give you access to the first lesson of the course, allowing you to 
                                     experience our teaching style and course quality before making a purchase.
                                 </p>
                             </div>
@@ -89,35 +76,7 @@ export default function FAQ() {
                             </div>
                             <div className="collapse-content">
                                 <p className="text-gray-600 leading-relaxed">
-                                    After purchasing, you'll receive an email with login instructions. Simply log in to your 
-                                    account and navigate to the "My Courses" section to access all your purchased content.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="collapse collapse-arrow join-item border border-gray-200 bg-white shadow-sm">
-                            <input type="radio" name="faq-accordion" />
-                            <div className="collapse-title text-lg font-semibold text-gray-900">
-                                What makes your courses different from free YouTube tutorials?
-                            </div>
-                            <div className="collapse-content">
-                                <p className="text-gray-600 leading-relaxed">
-                                    Our courses are structured, comprehensive, and designed for progression. Unlike scattered 
-                                    YouTube tutorials, we provide a complete learning path from beginner to advanced, with 
-                                    hands-on exercises and professional feedback.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="collapse collapse-arrow join-item border border-gray-200 bg-white shadow-sm">
-                            <input type="radio" name="faq-accordion" />
-                            <div className="collapse-title text-lg font-semibold text-gray-900">
-                                Do you offer certificates of completion?
-                            </div>
-                            <div className="collapse-content">
-                                <p className="text-gray-600 leading-relaxed">
-                                    Yes! Upon completing any course, you'll receive a certificate of completion that you can 
-                                    add to your portfolio or LinkedIn profile to showcase your photography skills.
+                                    After purchasing, you'll have access automatically to all your purchased content.
                                 </p>
                             </div>
                         </div>

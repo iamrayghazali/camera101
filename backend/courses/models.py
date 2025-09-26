@@ -106,7 +106,6 @@ class LessonBlock(TimeStampedModel):
         return f"{self.lesson.title} block {self.order_index} ({self.block_type})"
 
 
-# Track user progress through lessons
 from django.conf import settings
 
 

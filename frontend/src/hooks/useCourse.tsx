@@ -107,7 +107,6 @@ export const useCourse = (): UseCourseReturn => {
             setLoadingStates(prev => ({ ...prev, courses: true }));
             setLoading(true);
             const response = await api.get("/api/courses/");
-            console.log("Courses fetched successfully:", response.data);
             setCourses(response.data);
         } catch (err: any) {
             console.error("Error fetching courses:", err);
@@ -214,7 +213,6 @@ export const useCourse = (): UseCourseReturn => {
         // Always fetch actual progress from the backend (works for both purchased and free lessons)
         try {
             const response = await api.get(`/api/courses/${courseSlug}/progress/`);
-            console.log(`Course progress for ${courseSlug}:`, response.data);
             return response.data;
         } catch (error: any) {
             console.error('Error fetching course progress:', error);
@@ -231,7 +229,6 @@ export const useCourse = (): UseCourseReturn => {
 
         try {
             const response = await api.get(`/api/courses/${courseSlug}/next-lesson/`);
-            console.log(`Next available lesson for ${courseSlug}:`, response.data);
             return response.data;
         } catch (error: any) {
             console.error('Error fetching next available lesson:', error);
@@ -246,7 +243,6 @@ export const useCourse = (): UseCourseReturn => {
 
         try {
             const response = await api.get(`/api/courses/${courseSlug}/lesson-statuses/`);
-            console.log(`Lesson statuses for ${courseSlug}:`, response.data);
             return response.data.lesson_statuses || [];
         } catch (error: any) {
             console.error('Error fetching lesson statuses:', error);
