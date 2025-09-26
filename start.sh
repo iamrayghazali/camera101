@@ -1,13 +1,9 @@
 #!/bin/bash
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Run Django migrations
-python manage.py migrate
+# Apply database migrations
+python3 manage.py migrate
 
 # Collect static files
-python manage.py collectstatic --noinput
+python3 manage.py collectstatic --noinput
 
-# Start Django server
-python manage.py runserver 0.0.0.0:$PORT
+# Start the server on the Railway port
+python3 manage.py runserver 0.0.0.0:$PORT
