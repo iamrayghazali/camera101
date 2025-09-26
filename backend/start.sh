@@ -1,9 +1,4 @@
 #!/bin/bash
-# Apply database migrations
 python3 manage.py migrate
-
-# Collect static files
 python3 manage.py collectstatic --noinput
-
-# Start the server on the Railway port
-python3 manage.py runserver 0.0.0.0:$PORT
+gunicorn project_name.wsgi:application --bind 0.0.0.0:$PORT
