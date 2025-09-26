@@ -29,18 +29,24 @@ export default function Register() {
 
     // client validators return string or empty
     const validateUsername = (v: string) => {
-        if (!v || v.trim().length === 0) return "Username is required.";
-        if (v.trim().length < 3) return "Username must be at least 3 characters.";
+        if (!v || v.trim().length === 0) return "Please choose a username";
+        if (v.trim().length < 3) return "Username needs to be at least 3 characters long";
+        if (v.trim().length > 150) return "Username must be 150 characters or fewer";
+        if (v.includes(' ')) return "Username cannot contain spaces";
+        // Check for valid characters: letters, digits and @/./+/-/_ only
+        if (!/^[a-zA-Z0-9@.+\-_]+$/.test(v)) return "Username can only contain letters, numbers, and @/./+/-/_";
         return "";
     };
     const validateEmail = (v: string) => {
-        if (!v || v.trim().length === 0) return "Email is required.";
-        if (!emailRx.test(v)) return "Please enter a valid email address.";
+        if (!v || v.trim().length === 0) return "Please enter your email address";
+        if (!emailRx.test(v)) return "Please enter a valid email address (e.g., john@example.com)";
         return "";
     };
     const validatePassword = (v: string) => {
-        if (!v || v.length === 0) return "Password is required.";
-        if (v.length < 6) return "Password must be at least 6 characters.";
+        if (!v || v.length === 0) return "Please create a password";
+        if (v.length < 8) return "Password must be at least 8 characters long";
+        // Check if password is entirely numeric (backend will reject this)
+        if (/^\d+$/.test(v)) return "Password cannot be entirely numbers";
         return "";
     };
 
@@ -62,7 +68,17 @@ export default function Register() {
     // helper: get visible message for a field (server first if exists, else client)
     const getFieldMessage = (field: "username" | "email" | "password") => {
         // prefer server errors (first message) if present
-        if (serverErrors[field] && serverErrors[field].length > 0) return serverErrors[field][0];
+        if (serverErrors[field] && serverErrors[field].length > 0) {
+            const serverError = serverErrors[field][0];
+            // Make server errors more user-friendly
+            if (serverError.includes("already exists") || serverError.includes("taken")) {
+                return field === "email" ? "This email is already registered. Try signing in instead." : "This username is already taken. Please choose another one.";
+            }
+            if (serverError.includes("invalid")) {
+                return field === "email" ? "Please enter a valid email address" : "Please check your input and try again";
+            }
+            return serverError;
+        }
         // else show client error only if field touched
         if (touched[field]) return (clientErrors as any)[field] || "";
         return "";
@@ -103,7 +119,7 @@ export default function Register() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="flex-grow flex items-center justify-center p-4"
+                className="mt-20 flex-grow flex items-center justify-center p-4"
             >
                 <div className="w-full max-w-md">
                     {/* small, subtle general server error (if any) */}
@@ -111,9 +127,23 @@ export default function Register() {
                         <motion.div
                             initial={{ opacity: 0, y: -6 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="mb-4 bg-gray-800 text-red-400 text-sm rounded px-3 py-2"
+                            className="mb-4 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3"
                         >
-                            {serverErrors.general.map((m, i) => <div key={i}>{m}</div>)}
+                            <div className="flex items-center gap-2">
+                                <span className="text-red-500">⚠️</span>
+                                <div>
+                                    {serverErrors.general.map((m, i) => (
+                                        <div key={i} className="font-medium">
+                                            {m.includes("network") || m.includes("connection") 
+                                                ? "Unable to connect. Please check your internet connection and try again."
+                                                : m.includes("server") 
+                                                ? "Something went wrong on our end. Please try again in a moment."
+                                                : m
+                                            }
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </motion.div>
                     )}
 
@@ -123,11 +153,15 @@ export default function Register() {
                         className="bg-white rounded-2xl p-8 shadow-xl"
                         aria-describedby="register-form"
                     >
-                        <h1 className="text-2xl font-extrabold text-gray-900 mb-4 text-center">Create account</h1>
+                        <h1 className="text-2xl font-rama font-extrabold text-gray-900 mb-4 text-center">Create account</h1>
 
                         {/* Username */}
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                        <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">Username</label>
                         <input
+                            id="username"
+                            name="username"
+                            type="text"
+                            autoComplete="username"
                             value={username}
                             onChange={(e) => {
                                 setUsername(e.target.value);
@@ -136,7 +170,7 @@ export default function Register() {
                             onBlur={() => setTouched(prev => ({ ...prev, username: true }))}
                             aria-invalid={!!getFieldMessage("username")}
                             aria-describedby={getFieldMessage("username") ? "username-err" : undefined}
-                            className={`w-full border-b-2 pb-2 mb-1 text-gray-900 focus:outline-none transition ${
+                            className={`w-full border-b-2 pb-2 mb-1 text-gray-900 bg-transparent focus:outline-none transition ${
                                 getFieldMessage("username") ? "border-red-400" : "border-gray-200 focus:border-gray-700"
                             }`}
                             placeholder="pick a username"
@@ -155,8 +189,12 @@ export default function Register() {
                         {!getFieldMessage("username") && <div className="mb-3 h-[0.75rem]" />}
 
                         {/* Email */}
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email</label>
                         <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            autoComplete="email"
                             value={email}
                             onChange={(e) => {
                                 setEmail(e.target.value);
@@ -165,11 +203,10 @@ export default function Register() {
                             onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
                             aria-invalid={!!getFieldMessage("email")}
                             aria-describedby={getFieldMessage("email") ? "email-err" : undefined}
-                            className={`w-full border-b-2 pb-2 mb-1 text-gray-900 focus:outline-none transition ${
+                            className={`w-full border-b-2 pb-2 mb-1 text-gray-900 bg-transparent focus:outline-none transition ${
                                 getFieldMessage("email") ? "border-red-400" : "border-gray-200 focus:border-gray-700"
                             }`}
                             placeholder="you@example.com"
-                            inputMode="email"
                         />
                         {getFieldMessage("email") && (
                             <motion.p
@@ -184,8 +221,12 @@ export default function Register() {
                         {!getFieldMessage("email") && <div className="mb-3 h-[0.75rem]" />}
 
                         {/* Password */}
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">Password</label>
                         <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            autoComplete="new-password"
                             value={password}
                             onChange={(e) => {
                                 setPassword(e.target.value);
@@ -194,11 +235,10 @@ export default function Register() {
                             onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
                             aria-invalid={!!getFieldMessage("password")}
                             aria-describedby={getFieldMessage("password") ? "password-err" : undefined}
-                            className={`w-full border-b-2 pb-2 mb-1 text-gray-900 focus:outline-none transition ${
+                            className={`w-full border-b-2 pb-2 mb-1 text-gray-900 bg-transparent focus:outline-none transition ${
                                 getFieldMessage("password") ? "border-red-400" : "border-gray-200 focus:border-gray-700"
                             }`}
-                            placeholder="minimum 6 characters"
-                            type="password"
+                            placeholder="minimum 8 characters"
                         />
                         {getFieldMessage("password") && (
                             <motion.p
@@ -227,6 +267,19 @@ export default function Register() {
                         <p className="mt-4 text-xs text-gray-500 text-center">
                             By creating an account you agree to our terms.
                         </p>
+                        
+                        {/* Login Link */}
+                        <div className="mt-6 text-center">
+                            <p className="text-sm text-gray-600">
+                                Already have an account?{" "}
+                                <button
+                                    onClick={() => navigate("/login")}
+                                    className="text-primary hover:text-primary/80 font-semibold underline transition-colors"
+                                >
+                                    Sign in
+                                </button>
+                            </p>
+                        </div>
                     </form>
                 </div>
             </motion.main>

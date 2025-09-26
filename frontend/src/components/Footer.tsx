@@ -6,25 +6,25 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
         
         {/* Left - Brand */}
-        <div className="mb-4 md:mb-0 text-lg font-bold">Camera 101</div>
+        <div className="mb-4 md:mb-0 text-lg font-rama font-bold">Camera 101</div>
 
         {/* Center - Made by + Rights served */}
         <div className="text-center">
-          <p>
+          <p className="font-rama">
             made by |{" "}
             <a
               href="https://raydandev.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="italic font-bold hover:text-sky-400 transition-colors"
+              className="italic font-rama font-bold hover:text-sky-400 transition-colors"
             >
               this guy
             </a>
           </p>
           <p
-            className="mt-2 text-sm text-slate-300 "
+            className="mt-2 text-sm font-rama text-slate-300 "
           >
-              © 2025 CAMERA101. All rights reserved.
+            © 2025 CAMERA101. All rights reserved.
           </p>
         </div>
             {/* Placeholder */}
