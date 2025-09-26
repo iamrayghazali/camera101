@@ -1,127 +1,264 @@
+import { useState } from "react";
 import Navbar from "../../components/Navbar.tsx";
-import iphoneIMG from "../../assets/cameras/iphone.webp"
-import dslrIMG from "../../assets/cameras/dslr.jpg"
-import mirrorlessIMG from "../../assets/cameras/mirrorless.jpeg"
-import {Link} from "react-router-dom";
-import {useAuth} from "../../hooks/UseAuth.tsx";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/UseAuth.tsx";
+import { useCourse, type Course } from "../../hooks/useCourse";
 import Footer from "../../components/Footer.tsx";
-import Curriculum from "../../components/Curriculum.tsx";
+import { AiFillLock, AiOutlineEye, AiFillPlayCircle } from "react-icons/ai";
 
-export default function Lessons() {
-    const {isAuthenticated} = useAuth();
+type CourseCardProps = {
+    course: Course;
+    isAuthenticated: boolean;
+    hasAccess: boolean;
+    onPurchase: (courseSlug: string) => void;
+};
 
-    /*TODO finish button paths*/
+function CourseCard({ course, isAuthenticated, hasAccess, onPurchase }: CourseCardProps) {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const totalLessons = course.chapters.reduce((acc, chapter) => acc + chapter.lessons.length, 0);
+    const freeLessons = course.chapters.reduce((acc, chapter) =>
+        acc + chapter.lessons.filter(lesson => lesson.is_free_preview).length, 0
+    );
+
+    // Check if this is the DSLR course
+    const isDSLRCourse = course.slug === 'dslr-101';
+
     return (
-        <>
-            <div className="">
-                <Navbar />
-            <section className="mt-20 min-h-screen bg-black text-white flex flex-col justify-center items-center">
+        <div className={`card bg-secondary shadow-2xl transition-all duration-300 ${isDSLRCourse ? 'opacity-60 cursor-not-allowed' : 'hover:shadow-3xl transform hover:-translate-y-2'
+            }`}>
+            {/* Course Image */}
+            <figure className="relative overflow-hidden">
+                <img
+                    src={course.image_url || "/placeholder-course.jpg"}
+                    alt={course.title}
+                    className="w-full h-64 object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute top-4 right-4">
+                    {isDSLRCourse ? (
+                        <div className="badge badge-primary badge-lg font-bold">
+                            COMING SOON
+                        </div>
+                    ) : freeLessons > 0 ? (
+                        <div className="badge badge-primary badge-lg font-bold">
+                            {`${freeLessons} FREE`}
+                        </div>
+                    ) : null}
+                </div>
+            </figure>
 
-                <div className="mt-10 flex-none">
-                    <h1 className="text-white text-3xl sm:text-4xl my-4 px-5 font-rama">Choose a Camera Category</h1>
-                    <p className="text-white text-lg mt-5 px-5">Buying a course gets you all.</p>
+            {/* Course Content */}
+            <div className="card-body p-6">
+                {/* Course Title & Description */}
+                <div className="mb-4">
+                    <h2 className="card-title text-2xl font-bold text-white mb-2">
+                        {course.title}
+                    </h2>
+                    <p className="text-base-content/70 text-sm leading-relaxed">
+                        {course.description_markdown?.replace(/[#*]/g, '').substring(0, 120) || 'Master the art of photography with this comprehensive course.'}
+                        {course.description_markdown && course.description_markdown.length > 120 && '...'}
+                    </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_3fr] gap-5 mb-10 lg:mt-15 place-items-stretch">
-                    {/*----curriculum----*/}
-                    <div id="curriculum" className="ml-3 mt-10 flex flex-col items-center text-center">
-                        <p className="text-white text-md my-5 font-rama">Look Through the Curriculum</p>
-                            <Curriculum watchForAuth={true}/>
-                        </div>
-                    <div className=" divider divider-horizontal w-0"></div>
-
-                <div className="flex justify-center items-center">
-                    <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
-                        {/*----IPHONE----*/}
-                        <div className="card bg-base-100 w-70 shadow-sm">
-                            <figure>
-                                <img
-                                    src={iphoneIMG}
-                                    alt="iphone" />
-                            </figure>
-                            <div className="card-body">
-                                <h2 className="card-title text-xl">
-                                    iPhone Camera
-                                    {/*<div className="badge badge-secondary">FIRST LESSON FREE</div>*/}
-                                </h2>
-                                <p>From basics to expert, learn about the camera that is in your pocket to take better photos.</p>
-                                { isAuthenticated ? (
-                                    <Link to="" className=" rounded-md bg-white py-2 px-4 text-black"> {/*//TODO*/}
-                                        Start Learning
-                                    </Link>
-                                ) : (
-                                    <div className="flex felx-col justify-around items-center mt-8">
-                                        <Link to="/learn/iphone/" className="font-rama rounded-md bg-primary py-1 px-4 font-bold text-black"> {}
-                                            Try For FREE
-                                        </Link>
-                                        <Link to=""  className="font-rama rounded-md bg-white py-1 px-4 text-black"> {}
-                                            Buy Course
-                                        </Link>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/*----MIRRORLESS----*/}
-                        <div className="card bg-base-100 w-70 shadow-sm">
-                            <figure>
-                                <img className="w-full object-cover object-center"
-                                     src={mirrorlessIMG}
-                                     alt="mirrorless IMG" />
-                            </figure>
-                            <div className="card-body">
-                                <h2 className="card-title text-xl">
-                                    Mirrorless Camera
-                                </h2>
-                                <p>Step by step, learn the modern mirrorless system and combine pro-level quality with cutting-edge tech.</p>
-                                { isAuthenticated ? (
-                                    <Link to="" className=" rounded-md bg-white py-2 px-4 text-black"> {/*//TODO*/}
-                                        Start Learning
-                                    </Link>
-                                ) : (
-                                    <div className="flex felx-col justify-around items-center mt-8">
-                                        <Link to="" className="font-rama rounded-md bg-white py-1 px-4 font-bold text-black"> {}
-                                            Buy Course
-                                        </Link>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/*----DSLR----*/}
-                        <div className="card bg-base-100 w-70 shadow-sm">
-                            <figure>
-                                <img className=" w-full object-cover object-center"
-                                     src={dslrIMG}
-                                     alt="dslr" />
-                            </figure>
-                            <div className="card-body">
-                                <h2 className="card-title text-xl">
-                                    DSLR
-                                    {/*<div className="badge badge-secondary">NEW</div>*/}
-                                </h2>
-                                <p>From beginner to pro, master the classic DSLR to unlock full creative control over your photography.</p>
-                                { isAuthenticated ? (
-                                    <Link to="" className=" rounded-md bg-white py-2 px-4 text-black"> {/*//TODO*/}
-                                        Start Learning
-                                    </Link>
-                                ) : (
-                                    <div className="flex felx-col justify-around items-center mt-8">
-
-                                        <Link to=""  className=" rounded-md bg-primary py-2 px-4 text-black"> {}
-                                        Buy Course
-                                        </Link>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                {/* Course Stats */}
+                <div className="stats stats-horizontal shadow-sm mb-4">
+                    <div className="stat py-2 px-3 text-center">
+                        <div className="stat-title text-xs">Chapters</div>
+                        <div className="stat-value text-lg text-gray-300">{course.chapters.length}</div>
+                    </div>
+                    <div className="stat py-2 px-3 text-center">
+                        <div className="stat-title text-xs">Lessons</div>
+                        <div className="stat-value text-lg text-white">{totalLessons}</div>
+                    </div>
+                    <div className="stat py-2 px-3 text-center">
+                        <div className="stat-title text-xs">Free</div>
+                        <div className="stat-value text-lg text-gray-300">{freeLessons}</div>
                     </div>
                 </div>
-                </div>
-            </section>
-            <Footer />
-            </div>
 
+                {/* Curriculum Toggle */}
+                <div className="bg-gray-800 rounded-lg mb-4">
+                    <button
+                        className="w-full text-left p-4 flex items-center justify-between transition-colors rounded-lg hover:cursor-pointer"
+                        onClick={() => !isDSLRCourse && setIsExpanded(!isExpanded)}
+                        disabled={isDSLRCourse}
+                    >
+                        <div className="flex items-center gap-2">
+                            <AiOutlineEye className="text-primary" />
+                            <span className="text-lg font-semibold">View Curriculum</span>
+                        </div>
+                        <svg
+                            className={`w-5 h-5 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+
+                    {isExpanded && (
+                        <div className="px-4 pb-4">
+                            <div className="space-y-3">
+                                {course.chapters
+                                    .sort((a, b) => a.order_index - b.order_index)
+                                    .map((chapter) => (
+                                        <div key={chapter.id} className="border-l-4 border-primary pl-4">
+                                            <h4 className="font-semibold text-primary mb-2">
+                                                {chapter.title}
+                                            </h4>
+                                            <div className="space-y-1">
+                                                {chapter.lessons
+                                                    .sort((a, b) => a.number - b.number)
+                                                    .map((lesson) => {
+                                                        const isLocked = (!isAuthenticated && !lesson.is_free_preview) || (isAuthenticated && !hasAccess && !lesson.is_free_preview);
+                                                        return (
+                                                            <div
+                                                                key={lesson.id}
+                                                                className={`flex items-center gap-2 text-sm ${isLocked ? 'text-base-content/50' : 'text-base-content'
+                                                                    }`}
+                                                            >
+                                                                <div className="flex items-center gap-2">
+                                                                    {lesson.is_free_preview ? (
+                                                                        <AiFillPlayCircle className="text-primary" />
+                                                                    ) : isLocked ? (
+                                                                        <AiFillLock className="text-base-content/50" />
+                                                                    ) : (
+                                                                        <div className="w-2 h-2 bg-primary rounded-full"></div>
+                                                                    )}
+                                                                    <span className="font-medium">
+                                                                        {lesson.number}. {lesson.title}
+                                                                    </span>
+                                                                    {lesson.is_free_preview && (
+                                                                        <span className="badge badge-success badge-xs">FREE</span>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })}
+                                            </div>
+                                        </div>
+                                    ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="card-actions justify-end">
+                    {isDSLRCourse ? (
+                        <button
+                            disabled
+                            className="btn btn-disabled btn-lg w-full font-bold cursor-not-allowed"
+                        >
+                            Coming Soon
+                        </button>
+                    ) : isAuthenticated && hasAccess ? (
+                        <Link
+                            to={`/${course.slug}`}
+                            className="btn btn-primary btn-lg w-full font-bold"
+                        >
+                            <AiFillPlayCircle className="text-lg" />
+                            Start Learning
+                        </Link>
+          ) : isAuthenticated && !hasAccess ? (
+            <div className="flex flex-col gap-2 w-full">
+              <Link
+                to={`/${course.slug}`}
+                className="btn btn-primary btn-lg font-bold"
+              >
+                Try For FREE
+              </Link>
+              <button
+                onClick={() => onPurchase(course.slug)}
+                className="btn btn-outline btn-lg font-bold cursor-pointer"
+              >
+                Buy Course
+              </button>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-2 w-full">
+              <Link
+                to={`/${course.slug}`}
+                className="btn btn-primary btn-lg font-bold"
+              >
+                Try For FREE
+              </Link>
+              <button
+                onClick={() => window.location.href = '/login'}
+                className="btn btn-outline btn-lg font-bold cursor-pointer"
+              >
+                Login to Buy
+              </button>
+            </div>
+          )}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default function Lessons() {
+    const { isAuthenticated } = useAuth();
+    const { 
+        courses, 
+        courseAccess, 
+        handlePurchase, 
+        loading, 
+        loadingStates 
+    } = useCourse();
+
+    if (loading || loadingStates.courses) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-base-200 to-base-300 flex items-center justify-center">
+                <div className="text-center">
+                    <div className="loading loading-spinner loading-lg text-primary"></div>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <>
+            <div className="min-h-screen bg-gradient-to-br from-base-200 to-base-300">
+                <Navbar />
+
+                {/* Courses Grid */}
+                <section className="py-25 px-4">
+                    <div className="container mx-auto">
+                        <div className="text-center mb-12">
+                            <h2 className="text-4xl font-bold mb-4">Courses we offer</h2>
+                            <p className="text-lg text-base-content/70">
+                                Each course includes comprehensive curriculum with hands-on lessons
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 items-start">
+                            {courses
+                                .sort((a, b) => {
+                                    // Always put iPhone course first, then DSLR, then others alphabetically
+                                    if (a.slug === 'iphone-camera-101') return -1;
+                                    if (b.slug === 'iphone-camera-101') return 1;
+                                    if (a.slug === 'dslr-101') return -1;
+                                    if (b.slug === 'dslr-101') return 1;
+                                    return a.title.localeCompare(b.title);
+                                })
+                                .map((course) => (
+                                    <CourseCard
+                                        key={course.id}
+                                        course={course}
+                                        isAuthenticated={isAuthenticated}
+                                        hasAccess={courseAccess[course.slug] || false}
+                                        onPurchase={handlePurchase}
+                                    />
+                                ))}
+                        </div>
+                    </div>
+                </section>
+
+                <Footer />
+            </div>
         </>
-    )
+    );
 }

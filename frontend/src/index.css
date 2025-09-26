@@ -1,10 +1,23 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+/* Gradient animation for iPhone Simulator button */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 @theme {
-    --color-primary: #00E138;
-    --color-secondary: #bdbdbd;
-    --color-accent: #8C1C13;
+    --color-primary: #3A67B0;
+    --color-secondary: #001F51;
+    --color-accent: #85043A;
 
     --font-fira: "Fira Sans", sans-serif;
     --font-lato: "Lato", sans-serif;
@@ -44,6 +57,11 @@ html{
     margin: 0px;
     padding: 0px;
 }
+
+/** {
+    outline: 1px solid red;
+}*/
+
 body {
     margin: 0;
     padding: 0;
@@ -51,4 +69,41 @@ body {
     scroll-behavior: smooth;
     background-color: white;
     overflow-x: hidden;
+}
+
+/* Simple, clean hover effects */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Custom slider styles for camera simulator */
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider::-webkit-slider-track {
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #e5e7eb 0%, #3b82f6 100%);
 }
