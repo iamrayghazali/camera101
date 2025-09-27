@@ -8,6 +8,7 @@ def health_check(request):
     return JsonResponse({"status": "healthy", "service": "django-api"})
 
 urlpatterns = [
+    path('', health_check),
     path('health/', health_check),
     path('admin/', admin.site.urls),
     path('api/payments/', include('payments.urls')),
