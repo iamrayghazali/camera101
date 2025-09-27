@@ -4,8 +4,8 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "preDeployCommand": ["cd backend && python manage.py migrate"],
-    "startCommand": "cd backend && gunicorn config.wsgi:application --bind 0.0.0.0:8080 --workers 1",
+    "preDeployCommand": ["cd backend && python manage.py migrate && python manage.py collectstatic --noinput"],
+    "startCommand": "cd backend && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT",
     "restartPolicyType": "ON_FAILURE"
   }
 }
