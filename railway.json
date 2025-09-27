@@ -5,7 +5,7 @@
   },
   "deploy": {
     "preDeployCommand": ["cd backend && python manage.py migrate"],
-    "startCommand": "cd backend && python manage.py runserver 0.0.0.0:$PORT --noreload",
+    "startCommand": "cd backend && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --log-level debug",
     "restartPolicyType": "ON_FAILURE"
   }
 }
