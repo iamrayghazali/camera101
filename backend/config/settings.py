@@ -11,7 +11,7 @@ load_dotenv()
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'  # Fixed this line
 
-ALLOWED_HOSTS = ['learncamera101.com', 'www.learncamera101.com', 'nxv40dv9.up.railway.app']
+ALLOWED_HOSTS = ['learncamera101.com', 'www.learncamera101.com', 'camera101-production.up.railway.app']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -67,11 +67,6 @@ CORS_ALLOWED_ORIGINS = [
     "https://nxv40dv9.up.railway.app",
 ]
 
-if os.getenv('RAILWAY_ENVIRONMENT'):
-    CORS_ALLOWED_ORIGINS.extend([
-        "https://nxv40dv9.up.railway.app",
-    ])
-
 CORS_ALLOW_CREDENTIALS = True
 
 # STRIPE SETTINGS
@@ -81,7 +76,7 @@ STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET")
 
 # URL SETTINGS
 FRONTEND_URL = os.environ.get('FRONTEND_URL', 'https://learncamera101.com')
-BACKEND_URL = os.environ.get('BACKEND_URL', 'https://nxv40dv9.up.railway.app')
+BACKEND_URL = os.environ.get('BACKEND_URL', 'https://camera101-production.up.railway.app')
 
 # DATABASE - Your existing logic is fine
 DB_PROD_LIVE = os.environ.get('DB_PROD_LIVE')
