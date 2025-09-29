@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import IPhoneCameraSimulator from '../components/iPhoneCameraSimulator';
@@ -9,7 +9,6 @@ import {
 } from 'react-icons/ai';
 import { 
   MdFlashOff,
-  MdFlashOn,
   MdFlashAuto,
   MdPhotoLibrary
 } from 'react-icons/md';
