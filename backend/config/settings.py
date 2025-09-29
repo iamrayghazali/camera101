@@ -1,38 +1,72 @@
-# Production-ready Django settings
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-from datetime import timedelta
-import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load environment variables
 load_dotenv()
 
-# SECURITY SETTINGS - PRODUCTION READY
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-fallback-key')
-DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+# SECURITY SETTINGS
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'  # Fixed this line
 
-# Handle both production and Railway domains
-production_hosts = os.getenv('ALLOWED_HOSTS', 'learncamera101.com,www.learncamera101.com').split(',')
+ALLOWED_HOSTS = ['learncamera101.com', 'www.learncamera101.com', 'nxv40dv9.up.railway.app']
 
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'corsheaders',
+    'payments',
+    'courses',
+]
 
-ALLOWED_HOSTS = production_hosts
-# For Railway deployment, also allow Railway domains
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
+ROOT_URLCONF = 'config.urls'
 
-if os.getenv('RAILWAY_ENVIRONMENT'):
-    ALLOWED_HOSTS.extend(['nxv40dv9.up.railway.app', '.railway.app'])
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
-# CORS SETTINGS - Allow your Vercel frontend and Railway
+WSGI_APPLICATION = 'config.wsgi.application'
+
+# CORS SETTINGS
 CORS_ALLOWED_ORIGINS = [
     "https://learncamera101.com",
     "https://www.learncamera101.com",
-    "http://localhost:3000",  # Local React development
+    "http://localhost:3000",
+    "https://nxv40dv9.up.railway.app",
 ]
 
-# For Railway, also allow the Railway domain
 if os.getenv('RAILWAY_ENVIRONMENT'):
     CORS_ALLOWED_ORIGINS.extend([
         "https://nxv40dv9.up.railway.app",
@@ -41,55 +75,46 @@ if os.getenv('RAILWAY_ENVIRONMENT'):
 CORS_ALLOW_CREDENTIALS = True
 
 # STRIPE SETTINGS
-STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
-STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLIC_KEY")
-STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY")  # Fixed name
+STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET")
 
-# URL SETTINGS - PRODUCTION READY
-FRONTEND_URL = os.getenv('FRONTEND_URL', 'https://learncamera101.com')
-BACKEND_URL = os.getenv('BACKEND_URL', 'https://nxv40dv9.up.railway.app')
+# URL SETTINGS
+FRONTEND_URL = os.environ.get('FRONTEND_URL', 'https://learncamera101.com')
+BACKEND_URL = os.environ.get('BACKEND_URL', 'https://nxv40dv9.up.railway.app')
+
+# DATABASE - Your existing logic is fine
+DB_PROD_LIVE = os.environ.get('DB_PROD_LIVE')
 
 DATABASES = {
-    "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=True if os.getenv("DATABASE_URL") else False
-    )
+    "default": {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('PROD_POSTGRES_DB'),
+        'USER': os.environ.get('PROD_POSTGRES_USER'),
+        'PASSWORD': os.environ.get('PROD_POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('PROD_POSTGRES_HOST'),
+        'PORT': os.environ.get('PROD_POSTGRES_PORT'),
+    }
 }
 
-# SECURITY MIDDLEWARE - SSL redirect disabled for Railway
-SECURE_SSL_REDIRECT = os.getenv('RAILWAY_ENVIRONMENT') is None
+# SECURITY MIDDLEWARE
+SECURE_SSL_REDIRECT = True  # Always redirect to HTTPS
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
-# LOGGING
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': 'django_errors.log',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    },
-}
-
 # STATIC FILES
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # MEDIA FILES
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Internationalization
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
