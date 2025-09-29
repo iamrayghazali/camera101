@@ -9,6 +9,9 @@ import { BsClock } from "react-icons/bs";
 import bgImageDesktop from './assets/images/bg2.webp';
 import bgImageMobile from './assets/images/bg3.webp';
 import dslrImage from './assets/cameras/dslr.jpg';
+import iPhoneSimMobile from './assets/images/iphone-sim-mobile.png'
+import iPhoneSimDesktop from './assets/images/iphone-sim-desktop.png'
+import iphoneIMG from './assets/cameras/iphone.webp'
 import { motion } from "framer-motion";
 import { useCourse } from './hooks/useCourse.tsx';
 import ScrollAnimation from './components/ScrollAnimation.tsx';
@@ -300,7 +303,7 @@ function App() {
                         >
                             <div className="relative">
                                 <img
-                                    src={courses.find(course => course.slug === 'iphone-camera-101')?.image_url || "src/assets/cameras/iphone.webp"}
+                                    src={courses.find(course => course.slug === 'iphone-camera-101')?.image_url || iphoneIMG}
                                     alt="iPhone Camera Course"
                                     className="w-full h-80 object-cover rounded-2xl shadow-2xl"
                                 />
@@ -460,14 +463,14 @@ function App() {
                         <div className="relative">
                             <div className="hidden md:block">
                                 <img
-                                    src="src/assets/images/iphone-sim-desktop.png"
+                                    src={iPhoneSimDesktop}
                                     alt="iPhone Simulator Desktop Preview"
                                     className="w-full h-auto object-cover rounded-xl shadow-2xl"
                                 />
                             </div>
                             <div className="block md:hidden">
                                 <img
-                                    src="src/assets/images/iphone-sim-mobile.png"
+                                    src={iPhoneSimMobile}
                                     alt="iPhone Simulator Mobile Preview"
                                     className="w-full h-auto object-cover rounded-xl shadow-2xl"
                                 />
@@ -500,7 +503,7 @@ function App() {
                                 <div key={course.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                                     <div className="relative">
                                         <img
-                                            src={course.image_url || "/placeholder-course.jpg"}
+                                            src={course.image_url}
                                             alt={course.title}
                                             className="w-full h-48 object-cover"
                                         />

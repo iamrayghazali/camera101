@@ -30,7 +30,7 @@ function CourseCard({ course, isAuthenticated, hasAccess, onPurchase }: CourseCa
             {/* Course Image */}
             <figure className="relative overflow-hidden">
                 <img
-                    src={course.image_url || "/placeholder-course.jpg"}
+                    src={course.image_url}
                     alt={course.title}
                     className="w-full h-64 object-cover"
                 />
