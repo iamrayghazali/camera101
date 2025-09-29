@@ -303,7 +303,7 @@ function App() {
                         >
                             <div className="relative">
                                 <img
-                                    src={courses.find(course => course.slug === 'iphone-camera-101')?.image_url || iphoneIMG}
+                                    src={iphoneIMG}
                                     alt="iPhone Camera Course"
                                     className="w-full h-80 object-cover rounded-2xl shadow-2xl"
                                 />
