@@ -111,7 +111,7 @@ else:
     }
 
 # SECURITY MIDDLEWARE
-SECURE_SSL_REDIRECT = os.environ.get('RAILWAY_ENVIRONMENT') is None
+SECURE_SSL_REDIRECT = os.environ.get('RAILWAY_ENVIRONMENT') is not None
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -120,7 +120,7 @@ X_FRAME_OPTIONS = 'DENY'
 # STATIC FILES
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # Fixed this line
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # MEDIA FILES
 MEDIA_URL = '/media/'
