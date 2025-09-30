@@ -443,7 +443,7 @@ export default function CourseOverview() {
                                                                                     NEXT LESSON
                                                                                 </span>
                                                                             )}
-                                                                            {status === 'locked' && (
+                                                                            {status === 'locked' && !lesson.is_free_preview && (
                                                                                 <span className="text-gray-500 text-xs">Purchase required</span>
                                                                             )}
                                                                         </div>
