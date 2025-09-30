@@ -96,7 +96,7 @@ function App() {
             {/* Token Expiration Notification */}
             {showExpiredMessage && (
                 <motion.div
-                    className="bg-red-500 text-white px-4 py-3 text-center"
+                    className="mt-18 bg-red-500 text-white px-4 py-3 text-center"
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -50 }}
