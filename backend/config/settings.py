@@ -10,7 +10,7 @@ load_dotenv()
 # SECURITY SETTINGS
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'  # Fixed this line
-
+AUTH_USER_MODEL = 'payments.User'
 ALLOWED_HOSTS = ['learncamera101.com', 'www.learncamera101.com', 'camera101-production.up.railway.app', 'http://localhost:5173']
 
 INSTALLED_APPS = [
@@ -78,7 +78,7 @@ STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET")
 FRONTEND_URL = os.environ.get('FRONTEND_URL', 'https://learncamera101.com')
 BACKEND_URL = os.environ.get('BACKEND_URL', 'https://camera101-production.up.railway.app')
 
-# DATABASE - Your existing logic is fine
+# DATABASE
 DB_PROD_LIVE = os.environ.get('DB_PROD_LIVE')
 
 DATABASES = {
