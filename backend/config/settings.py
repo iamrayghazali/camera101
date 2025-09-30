@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -14,6 +15,15 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'  # Fixed this line
 AUTH_USER_MODEL = 'payments.User'
 ALLOWED_HOSTS = ['learncamera101.com', 'www.learncamera101.com', 'camera101-production.up.railway.app', 'http://localhost:5173']
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  # short-lived access token
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),     # user can stay logged in for a week
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "UPDATE_LAST_LOGIN": True,
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',
