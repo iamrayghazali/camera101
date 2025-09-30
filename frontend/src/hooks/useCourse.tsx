@@ -61,7 +61,6 @@ export interface LessonStatus {
 }
 
 export interface UseCourseReturn {
-    // Data
     courses: Course[];
     courseAccess: Record<string, boolean>;
     lastIncompleteLesson: LessonProgress | null;
@@ -150,10 +149,16 @@ export const useCourse = (): UseCourseReturn => {
     const getLastIncompleteLesson = useCallback(async (): Promise<LessonProgress | null> => {
         if (!isAuthenticated) return null;
 
+        const token = localStorage.getItem("authToken");
+        if (!token) return null;
+
         try {
             setLoadingStates(prev => ({ ...prev, progress: true }));
-            const res = await api.get("/api/courses/progress/last-incomplete/");
-            
+
+            const res = await api.get("/api/courses/progress/last-incomplete/", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
             if (res.data && res.data.course_slug) {
                 setLastIncompleteLesson(res.data);
                 const path = `/${res.data.course_slug}/${res.data.chapter_slug}/${res.data.number}/`;
