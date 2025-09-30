@@ -2,7 +2,6 @@
 
 A modern, full-stack photography education platform built with React, TypeScript, Django, and Stripe. Learn photography through interactive courses, simulators, and hands-on lessons.
 
-![Camera101 Hero](https://img.shields.io/badge/Status-Production%20Ready-green)
 ![React](https://img.shields.io/badge/React-19.1.1-blue)
 ![Django](https://img.shields.io/badge/Django-5.2.6-green)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue)
