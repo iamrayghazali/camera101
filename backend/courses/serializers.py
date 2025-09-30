@@ -63,8 +63,12 @@ class CourseSerializer(serializers.ModelSerializer):
         ]
 
     def get_image_url(self, obj: Course):
-        request = self.context.get("request")
-        if obj.image and hasattr(obj.image, "url"):
+        if obj.image:
+            image_str = str(obj.image)
+            if image_str.startswith("http"):  # already a Cloudinary URL
+                return image_str
+            # else build the local media URL
+            request = self.context.get("request")
             if request:
                 return request.build_absolute_uri(obj.image.url)
             return obj.image.url
