@@ -353,7 +353,7 @@ function App() {
 
                                     <div className="flex flex-col sm:flex-row gap-4">
                                         <Link
-                                            to="/learn"
+                                            to="/iphone-camera-101"
                                             className="flex-1 bg-gradient-to-r from-primary to-secondary text-white py-4 px-6 rounded-xl font-rama font-bold text-center hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                                         >
                                             Try For FREE
