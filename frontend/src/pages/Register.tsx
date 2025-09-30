@@ -161,7 +161,7 @@ export default function Register() {
                             id="username"
                             name="username"
                             type="text"
-                            autoComplete="username"
+                            autoComplete="off"
                             value={username}
                             onChange={(e) => {
                                 setUsername(e.target.value);
