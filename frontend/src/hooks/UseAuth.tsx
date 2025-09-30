@@ -18,6 +18,11 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const api = axios.create({
+    baseURL: API_BASE_URL,
+});
+
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [token, setToken] = useState<string | null>(null);
     const [user, setUser] = useState<any>(null);
@@ -29,6 +34,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         const savedToken = localStorage.getItem("authToken");
         const savedUser = localStorage.getItem("authUser");
+        api.interceptors.request.use((config) => {
+            const tokenToUse = token || localStorage.getItem("authToken");
+            if (tokenToUse) {
+                config.headers.Authorization = `Bearer ${tokenToUse}`;
+            }
+            return config;
+        });
+
         if (savedToken) {
             setToken(savedToken);
             if (savedUser) {
@@ -36,7 +49,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             }
         }
         setInitialLoading(false);
-    }, []);
+    }, [token]);
 
     // Listen for token expiration events
     useEffect(() => {
