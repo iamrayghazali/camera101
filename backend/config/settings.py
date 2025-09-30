@@ -11,7 +11,7 @@ load_dotenv()
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'  # Fixed this line
 
-ALLOWED_HOSTS = ['learncamera101.com', 'www.learncamera101.com', 'camera101-production.up.railway.app']
+ALLOWED_HOSTS = ['learncamera101.com', 'www.learncamera101.com', 'camera101-production.up.railway.app', 'http://localhost:5173']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -63,7 +63,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 CORS_ALLOWED_ORIGINS = [
     "https://learncamera101.com",
     "https://www.learncamera101.com",
-    "http://localhost:3000",
+    "http://localhost:5173",
     "https://nxv40dv9.up.railway.app",
 ]
 
