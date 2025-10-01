@@ -275,7 +275,7 @@ function App() {
                     <div className=" text-center mb-20 max-w-3xl">
                         <motion.h2
                             className="text-3xl md:text-4xl font-rama font-bold text-gray-100 mb-8"
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
                         >
@@ -283,7 +283,7 @@ function App() {
                         </motion.h2>
                         <motion.p
                             className="text-sm md:text-base text-gray-300 max-w-5xl mx-auto leading-relaxed"
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
                         >
@@ -297,9 +297,13 @@ function App() {
                         {/* Left Side - Course Image */}
                         <motion.div
                             className="relative order-1 lg:order-1"
-                            initial={{ opacity: 0, x: -50 }}
+                            initial={{ opacity: 0, x: -70 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
+                            transition={{
+                                delay: 0.4,
+                                x: { type: "spring", stiffness: 60, damping: 20 },
+                                opacity: { duration: 1, ease: "easeOut" },
+                            }}
                         >
                             <div className="relative">
                                 <img
@@ -321,9 +325,13 @@ function App() {
                         {/* Right Side - Course Card */}
                         <motion.div
                             className="order-2 lg:order-2"
-                            initial={{ opacity: 0, x: 50 }}
+                            initial={{ opacity: 0, x: 70 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
+                            transition={{
+                                delay: 0.9,
+                                x: { type: "spring", stiffness: 60, damping: 20 }, // slide slows naturally
+                                opacity: { duration: 1, ease: "easeOut" },           // fade slower
+                            }}
                         >
                             <div className="bg-black border border-gray-700 rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300">
                                 <div className="p-8">
@@ -354,13 +362,13 @@ function App() {
                                     <div className="flex flex-col sm:flex-row gap-4">
                                         <Link
                                             to="/iphone-camera-101"
-                                            className="flex-1 bg-gradient-to-r from-primary to-secondary text-white py-4 px-6 rounded-xl font-rama font-bold text-center hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                                            className="flex-1 bg-gradient-to-r from-primary to-secondary text-white py-4 px-6 rounded-xl font-rama font-bold text-center hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 whitespace-nowrap"
                                         >
                                             Try For FREE
                                         </Link>
                                         <Link
                                             to="/simulators/iphone"
-                                            className="flex-1 border-2 border-primary text-primary py-4 px-6 rounded-xl font-rama font-bold text-center bg-transparent hover:bg-primary hover:text-white transition-all duration-300"
+                                            className="flex-1 border-2 border-primary text-primary py-4 px-6 rounded-xl font-rama font-bold text-center bg-transparent hover:bg-primary hover:text-white transition-all duration-300 whitespace-nowrap"
                                         >
                                             Try Simulator
                                         </Link>
