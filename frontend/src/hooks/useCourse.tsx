@@ -9,7 +9,6 @@ export interface Lesson {
     number: number;
     is_free_preview: boolean;
 }
-
 export interface Chapter {
     id: number;
     title: string;
@@ -17,7 +16,6 @@ export interface Chapter {
     order_index: number;
     lessons: Lesson[];
 }
-
 export interface Course {
     id: number;
     title: string;
@@ -27,20 +25,17 @@ export interface Course {
     price_eur?: number;
     chapters: Chapter[];
 }
-
 export interface LessonProgress {
     course_slug: string;
     chapter_slug: string;
     number: number;
     title: string;
 }
-
 export interface CourseProgress {
     completed: number;
     total: number;
     percentage: number;
 }
-
 export interface NextLesson {
     course_slug: string;
     chapter_slug: string;
@@ -49,7 +44,6 @@ export interface NextLesson {
     is_free_preview: boolean;
     all_completed?: boolean;
 }
-
 export interface LessonStatus {
     lesson_id: number;
     chapter_slug: string;
@@ -59,7 +53,6 @@ export interface LessonStatus {
     is_next: boolean;
     is_free_preview: boolean;
 }
-
 export interface UseCourseReturn {
     courses: Course[];
     courseAccess: Record<string, boolean>;
@@ -154,7 +147,7 @@ export const useCourse = (): UseCourseReturn => {
 
         try {
             setLoadingStates(prev => ({ ...prev, progress: true }));
-
+            console.log(token)
             const res = await api.get("/api/courses/progress/last-incomplete/", {
                 headers: { Authorization: `Bearer ${token}` }
             });

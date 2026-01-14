@@ -33,7 +33,7 @@ export default function Login() {
             <motion.div
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-4 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3"
+                className="mb-4 glass-thick text-red-700 text-sm rounded-lg px-4 py-3"
             >
                 <div className="flex items-center gap-2">
                     <span className="text-red-500">⚠️</span>
@@ -77,7 +77,7 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-gray-900">
+        <div className="min-h-screen flex flex-col bg-dots">
             <Navbar />
             <motion.main
                 initial={{ opacity: 0, y: 16 }}
@@ -85,7 +85,7 @@ export default function Login() {
                 transition={{ duration: 0.5 }}
                 className="mt-20 flex-grow flex items-center justify-center p-4"
             >
-                <div className="w-full max-w-md">
+                <div className="w-full max-w-md glass-thin">
                     {/* Server errors */}
                     {renderErrors()}
 

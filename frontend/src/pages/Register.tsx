@@ -31,7 +31,7 @@ export default function Register() {
     const validateUsername = (v: string) => {
         if (!v || v.trim().length === 0) return "Please choose a username";
         if (v.trim().length < 3) return "Username needs to be at least 3 characters long";
-        if (v.trim().length > 150) return "Username must be 150 characters or fewer";
+        if (v.trim().length > 50) return "Username must be 50 characters or fewer";
         if (v.includes(' ')) return "Username cannot contain spaces";
         // Check for valid characters: letters, digits and @/./+/-/_ only
         if (!/^[a-zA-Z0-9@.+\-_]+$/.test(v)) return "Username can only contain letters, numbers, and @/./+/-/_";
@@ -113,7 +113,7 @@ export default function Register() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-gray-900">
+        <div className="min-h-screen flex flex-col bg-dots">
             <Navbar />
             <motion.main
                 initial={{ opacity: 0, y: 16 }}

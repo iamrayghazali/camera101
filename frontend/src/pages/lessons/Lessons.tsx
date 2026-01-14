@@ -25,7 +25,7 @@ function CourseCard({ course, isAuthenticated, hasAccess, onPurchase }: CourseCa
     const isDSLRCourse = course.slug === 'dslr-101';
 
     return (
-        <div className={`card bg-secondary shadow-2xl transition-all duration-300 ${isDSLRCourse ? 'opacity-60 cursor-not-allowed' : 'hover:shadow-3xl transform hover:-translate-y-2'
+        <div className={`card glass-thick shadow-2xl transition-all duration-300 ${isDSLRCourse ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-3xl transform hover:-translate-y-2'
             }`}>
             {/* Course Image */}
             <figure className="relative overflow-hidden">
@@ -34,15 +34,15 @@ function CourseCard({ course, isAuthenticated, hasAccess, onPurchase }: CourseCa
                     alt={course.title}
                     className="w-full h-64 object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                 <div className="absolute top-4 right-4">
                     {isDSLRCourse ? (
-                        <div className="badge badge-primary badge-lg font-bold">
+                        <div className="badge glass-thick badge-lg font-bold">
                             COMING SOON
                         </div>
                     ) : freeLessons > 0 ? (
-                        <div className="badge badge-primary badge-lg font-bold">
-                            {`${freeLessons} FREE`}
+                        <div className="badge glass-thick badge-lg font-bold">
+                            {`${freeLessons} FREE LESSON`}
                         </div>
                     ) : null}
                 </div>
@@ -62,7 +62,7 @@ function CourseCard({ course, isAuthenticated, hasAccess, onPurchase }: CourseCa
                 </div>
 
                 {/* Course Stats */}
-                <div className="stats stats-horizontal shadow-sm mb-4">
+                <div className="stats stats-horizontal shadow-sm mb-4 bg-black">
                     <div className="stat py-2 px-3 text-center">
                         <div className="stat-title text-xs">Chapters</div>
                         <div className="stat-value text-lg text-gray-300">{course.chapters.length}</div>
@@ -85,7 +85,7 @@ function CourseCard({ course, isAuthenticated, hasAccess, onPurchase }: CourseCa
                         disabled={isDSLRCourse}
                     >
                         <div className="flex items-center gap-2">
-                            <AiOutlineEye className="text-primary" />
+                            <AiOutlineEye />
                             <span className="text-lg font-semibold">View Curriculum</span>
                         </div>
                         <svg
@@ -157,7 +157,7 @@ function CourseCard({ course, isAuthenticated, hasAccess, onPurchase }: CourseCa
                     ) : isAuthenticated && hasAccess ? (
                         <Link
                             to={`/${course.slug}`}
-                            className="btn btn-primary btn-lg w-full font-bold"
+                            className="btn glass-thick btn-lg w-full font-bold  cursor-pointer"
                         >
                             <AiFillPlayCircle className="text-lg" />
                             Start Learning
@@ -166,13 +166,13 @@ function CourseCard({ course, isAuthenticated, hasAccess, onPurchase }: CourseCa
             <div className="flex flex-col gap-2 w-full">
               <Link
                 to={`/${course.slug}`}
-                className="btn btn-primary btn-lg font-bold"
+                className="btn glass-thick btn-lg font-bold  cursor-pointer"
               >
                 Try For FREE
               </Link>
               <button
                 onClick={() => onPurchase(course.slug)}
-                className="btn btn-outline btn-lg font-bold cursor-pointer"
+                className="btn glass-thin btn-lg font-bold cursor-pointer"
               >
                 Buy Course
               </button>
@@ -181,15 +181,15 @@ function CourseCard({ course, isAuthenticated, hasAccess, onPurchase }: CourseCa
             <div className="flex flex-col gap-2 w-full">
               <Link
                 to={`/${course.slug}`}
-                className="btn btn-primary btn-lg font-bold"
+                className="btn glass-thick btn-lg font-bold  cursor-pointer"
               >
                 Try For FREE
               </Link>
               <button
                 onClick={() => window.location.href = '/login'}
-                className="btn btn-outline btn-lg font-bold cursor-pointer"
+                className="btn glass-thin btn-lg cursor-pointer"
               >
-                Login to Buy
+                Buy Course
               </button>
             </div>
           )}
@@ -221,14 +221,14 @@ export default function Lessons() {
 
     return (
         <>
-            <div className="min-h-screen bg-gradient-to-br from-base-200 to-base-300">
+            <div className="min-h-screen bg-dots bg-fixed bg-center bg-cover ">
                 <Navbar />
 
                 {/* Courses Grid */}
                 <section className="py-25 px-4">
                     <div className="container mx-auto">
                         <div className="text-center mb-12">
-                            <h2 className="text-4xl font-bold mb-4">Courses we offer</h2>
+                            <h2 className="text-4xl font-bold mb-4">Choose a Course</h2>
                             <p className="text-lg text-base-content/70">
                                 Each course includes comprehensive curriculum with hands-on lessons
                             </p>

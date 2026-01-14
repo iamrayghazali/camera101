@@ -44,11 +44,11 @@ export default function CameraSimulator() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+    <div className="min-h-screen bg-dots to-black text-white">
       <Navbar />
       
       {/* Hero Section */}
-      <div className="pt-25 pb-8">
+      <div className="pt-25 pb-8 min-h-screen">
         <div className="container mx-auto px-4">
           <motion.div 
             className="text-center mb-8"
@@ -138,7 +138,6 @@ export default function CameraSimulator() {
           </div>
         </div>
       </div>
-      
       <Footer />
     </div>
   );

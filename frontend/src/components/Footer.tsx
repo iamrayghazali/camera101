@@ -2,11 +2,11 @@
 export default function Footer() {
 
   return (
-    <footer className="w-full bg-slate-900 text-slate-200 py-6 mt-auto relative shadow-inner">
+    <footer className="w-full bg-black text-slate-200 py-6 mt-auto relative shadow-inner">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
         
         {/* Left - Brand */}
-        <div className="mb-4 md:mb-0 text-lg font-rama font-bold">Camera 101</div>
+        <div className="mb-4 md:mb-0 text-lg font-rama font-bold">Learn Camera 101</div>
 
         {/* Center - Made by + Rights served */}
         <div className="text-center">

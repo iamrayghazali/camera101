@@ -1,11 +1,19 @@
-import { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import {useEffect, useState} from "react";
+import {Link, useParams, useNavigate} from "react-router-dom";
+import {motion} from "framer-motion";
 import Navbar from "../components/Navbar";
-import { useAuth } from "../hooks/UseAuth";
-import { useCourse, type Course as CourseFromHook } from "../hooks/useCourse";
-import { AiOutlineLock, AiOutlinePlayCircle, AiOutlineBook, AiOutlineDown, AiOutlineUp, AiOutlineCheck } from "react-icons/ai";
-import { MdAssessment } from "react-icons/md";
+import {useAuth} from "../hooks/UseAuth";
+import {useCourse, type Course as CourseFromHook} from "../hooks/useCourse";
+import {
+    AiOutlineLock,
+    AiOutlinePlayCircle,
+    AiOutlineBook,
+    AiOutlineDown,
+    AiOutlineUp,
+    AiOutlineCheck
+} from "react-icons/ai";
+import {MdAssessment} from "react-icons/md";
+import { MdOutlinePhoneIphone } from "react-icons/md";
 
 type Lesson = {
     id: number;
@@ -14,13 +22,12 @@ type Lesson = {
     is_free_preview: boolean;
 };
 
-// ✅ Use the Course type from useCourse hook
 type Course = CourseFromHook;
 
 export default function CourseOverview() {
-    const { courseSlug } = useParams();
+    const {courseSlug} = useParams();
     const navigate = useNavigate();
-    const { isAuthenticated, initialLoading } = useAuth();
+    const {isAuthenticated, initialLoading} = useAuth();
     const {
         courses,
         getCourseProgress,
@@ -61,7 +68,7 @@ export default function CourseOverview() {
         }
 
         // If not found in hook, fetch from API
-        import("../utils/axios").then(({ default: api }) => {
+        import("../utils/axios").then(({default: api}) => {
             api.get(`/api/courses/${courseSlug}/`).then(res => {
                 if (!mounted) return;
                 setCourse(res.data);
@@ -83,7 +90,7 @@ export default function CourseOverview() {
     const hasAccess = courseSlug ? hasCourseAccess(courseSlug) : false;
 
     // Get course progress from useCourse hook
-    const [courseProgress, setCourseProgress] = useState({ completed: 0, total: 0, percentage: 0 });
+    const [courseProgress, setCourseProgress] = useState({completed: 0, total: 0, percentage: 0});
 
     // Fetch course progress
     useEffect(() => {
@@ -143,10 +150,9 @@ export default function CourseOverview() {
     };
 
 
-
     if (initialLoading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+            <div className="min-h-screen bg-wave flex items-center justify-center">
                 <div className="text-center">
                     <div className="loading loading-spinner loading-lg text-primary"></div>
                     <p className="mt-4 text-lg font-semibold text-white">Loading...</p>
@@ -160,7 +166,7 @@ export default function CourseOverview() {
     }
     if (loading || courseLoading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+            <div className="min-h-screen bg-wave flex items-center justify-center">
                 <div className="text-center">
                     <div className="loading loading-spinner loading-lg text-primary"></div>
                     <p className="mt-4 text-lg font-semibold text-white">Loading course...</p>
@@ -170,14 +176,14 @@ export default function CourseOverview() {
     }
     if (error) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+            <div className="min-h-screen bg-wave flex items-center justify-center">
                 <div className="text-center">
                     <div className="alert alert-error shadow-lg max-w-md">
                         <span className="font-bold">Error: {error}</span>
                     </div>
                     <button
                         onClick={() => window.location.reload()}
-                        className="btn btn-primary mt-4"
+                        className="btn glass-thick mt-4"
                     >
                         Try Again
                     </button>
@@ -187,7 +193,8 @@ export default function CourseOverview() {
     }
     if (!course) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center">
+            <div
+                className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center">
                 <div className="text-center">
                     <h1 className="text-2xl font-bold text-white mb-4">Course Not Found</h1>
                     <Link to="/learn" className="btn btn-primary">Back to Courses</Link>
@@ -197,26 +204,24 @@ export default function CourseOverview() {
     }
 
     return (
-        <div className="min-h-screen bg-base-300">
-            <Navbar />
+        <div className="min-h-screen bg-wave bg-fixed bg-center bg-cover">
+            <Navbar/>
 
             {/* Dashboard Layout */}
-            <div className="mt-20 flex flex-col lg:flex-row">
-
+            <div className="mt-15 flex flex-col lg:flex-row ">
 
                 {/* Main Content */}
                 <div className="flex-1 p-4 lg:p-8">
                     {/* Header */}
                     <div className="mb-6 lg:mb-8">
-                        <div className="bg-white rounded-xl p-6 lg:p-8 shadow-lg border">
+                        <div className="bg-dots bg-fixed bg-center bg-cover rounded-xl p-6 lg:p-8 shadow-lg border">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                                 {/* Left side - Course info */}
                                 <div className="flex flex-col justify-center order-1 lg:order-1">
                                     <div className="mb-6">
-                                        <h1 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">{course.title}</h1>
-                                        <p className="text-gray-600 text-base lg:text-lg leading-relaxed">
-                                            {course.description_markdown?.replace(/[#*]/g, '').substring(0, 200) || 'Master the art of photography with this comprehensive course.'}
-                                            {course.description_markdown && course.description_markdown.length > 200 && '...'}
+                                        <h1 className="text-3xl lg:text-5xl font-bold text-white mb-4 leading-tight">{course.title}</h1>
+                                        <p className="text-gray-400 text-base lg:text-lg leading-relaxed">
+                                            {course.description_markdown}
                                         </p>
                                     </div>
 
@@ -230,7 +235,8 @@ export default function CourseOverview() {
                                             alt={course.title}
                                             className="w-full max-w-md h-80 lg:h-96 rounded-2xl object-cover shadow-2xl"
                                         />
-                                        <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-xl font-bold text-sm shadow-lg">
+                                        <div
+                                            className="absolute -top-4 -right-4 glass-thick text-white px-4 py-2 rounded-xl font-bold text-sm shadow-lg">
                                             {hasAccess ? 'Full Access' : 'Try Free Lessons'}
                                         </div>
                                     </div>
@@ -239,27 +245,36 @@ export default function CourseOverview() {
                                 {/* Action Buttons - Below image on mobile */}
                                 <div className="order-3 lg:order-3 lg:col-span-2 flex justify-center lg:justify-start">
                                     {hasAccess ? (
-                                        <Link
-                                            to={lastCompletedLessonPath || `/${course.slug}/${course.chapters[0].slug}/${course.chapters[0].lessons[0].number}`}
-                                            className="inline-flex items-center gap-3 bg-gradient-to-r from-primary to-secondary text-white hover:from-primary/90 hover:to-secondary/90 py-4 px-8 rounded-xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
-                                        >
-                                            <AiOutlinePlayCircle className="text-xl" />
-                                            Continue Learning
-                                        </Link>
+                                        <div className="flex flex-col sm:flex-row gap-4">
+                                                <Link
+                                                to={lastCompletedLessonPath || `/${course.slug}/${course.chapters[0].slug}/${course.chapters[0].lessons[0].number}`}
+                                                className="inline-flex items-center gap-3 glass-thick text-white hover:from-primary/90 hover:to-secondary/90 py-4 px-8 rounded-xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
+                                            >
+                                                <AiOutlinePlayCircle className="text-xl"/>
+                                                Continue Learning
+                                            </Link>
+                                            <Link
+                                                to={"/simulators/iphone"}
+                                                className="inline-flex items-center gap-3 glass-white text-black py-4 px-8 rounded-xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
+                                            >
+                                                <MdOutlinePhoneIphone className="text-xl"/>
+                                                Go to Simulator
+                                            </Link>
+                                        </div>
                                     ) : (
                                         <div className="flex flex-col sm:flex-row gap-4">
                                             <Link
                                                 to={`/${course.slug}/${course.chapters[0].slug}/${course.chapters[0].lessons[0].number}`}
-                                                className="inline-flex items-center gap-3 bg-white text-primary hover:bg-gray-50 border-2 border-primary py-4 px-8 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                                                className="inline-flex items-center gap-3 glass-thick text-white py-4 px-8 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer"
                                             >
-                                                <AiOutlinePlayCircle className="text-xl" />
+                                                <AiOutlinePlayCircle className="text-xl"/>
                                                 Start Free Lesson
                                             </Link>
                                             <button
                                                 onClick={() => handlePurchase(course.slug)}
-                                                className="inline-flex items-center gap-3 bg-gradient-to-r from-primary to-secondary text-white hover:from-primary/90 hover:to-secondary/90 py-4 px-8 rounded-xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
+                                                className="inline-flex items-center gap-3  glass-white text-black  py-4 px-8 rounded-xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 cursor-pointer"
                                             >
-                                                <AiOutlinePlayCircle className="text-xl" />
+                                                <AiOutlinePlayCircle className="text-xl"/>
                                                 Buy Course
                                             </button>
                                         </div>
@@ -268,50 +283,54 @@ export default function CourseOverview() {
 
                                 {/* Stats Cards - Below image on mobile, right side on desktop */}
                                 <div className="grid grid-cols-2 gap-4 order-3 lg:order-3 lg:col-span-2">
-                                    <div className="bg-gray-50 rounded-lg p-4 border">
+                                    <div className="glass-white rounded-lg p-4 border">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                                                <AiOutlineBook className="text-primary text-lg" />
+                                            <div
+                                                className="w-12 h-12 glass-thin rounded-lg flex items-center justify-center">
+                                                <AiOutlineBook className="text-primary text-3xl"/>
                                             </div>
                                             <div className="flex flex-col">
-                                                <p className="text-lg font-bold text-gray-900">{course.chapters.length}</p>
-                                                <p className="text-gray-600 text-xs">Chapters</p>
+                                                <p className="text-lg font-bold text-black">{course.chapters.length}</p>
+                                                <p className="text-gray-800 text-xs">Chapters</p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="bg-gray-50 rounded-lg p-4 border">
+                                    <div className="glass-white rounded-lg p-4 border">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                                                <AiOutlinePlayCircle className="text-primary text-lg" />
+                                            <div
+                                                className="w-12 h-12 glass-thin rounded-lg flex items-center justify-center">
+                                                <AiOutlinePlayCircle className="text-primary  text-3xl"/>
                                             </div>
                                             <div className="flex flex-col">
-                                                <p className="text-lg font-bold text-gray-900">{course.chapters.reduce((acc, ch) => acc + ch.lessons.length, 0)}</p>
-                                                <p className="text-gray-600 text-xs">Lessons</p>
+                                                <p className="text-lg font-bold text-black">{course.chapters.reduce((acc, ch) => acc + ch.lessons.length, 0)}</p>
+                                                <p className="text-gray-800 text-xs">Lessons</p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="bg-gray-50 rounded-lg p-4 border">
+                                    <div className="glass-white rounded-lg p-4 border">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                                                <MdAssessment className="text-primary text-lg" />
+                                            <div
+                                                className="w-12 h-12 glass-thin rounded-lg flex items-center justify-center">
+                                                <MdAssessment className="text-primary text-3xl"/>
                                             </div>
                                             <div className="flex flex-col">
-                                                <p className="text-lg font-bold text-gray-900">{courseProgress.completed}</p>
-                                                <p className="text-gray-600 text-xs">Completed</p>
+                                                <p className="text-lg font-bold text-black">{courseProgress.completed}</p>
+                                                <p className="text-gray-800 text-xs">Completed</p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="bg-gray-50 rounded-lg p-4 border">
+                                    <div className="glass-white rounded-lg p-4 border ">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                                                <span className="text-primary text-lg font-bold">%</span>
+                                            <div
+                                                className="w-12 h-12 glass-thin rounded-lg flex items-center justify-center">
+                                                <span className="text-primary text-3xl font-bold">%</span>
                                             </div>
                                             <div className="flex flex-col">
-                                                <p className="text-lg font-bold text-gray-900">{courseProgress.percentage}%</p>
-                                                <p className="text-gray-600 text-xs">Progress</p>
+                                                <p className="text-lg font-bold text-black">{courseProgress.percentage}%</p>
+                                                <p className="text-gray-800 text-xs">Progress</p>
                                             </div>
                                         </div>
                                     </div>
@@ -319,20 +338,20 @@ export default function CourseOverview() {
                             </div>
 
                             {/* Progress Bar - At bottom of header */}
-                            <div className="mt-8 pt-6 border-t border-gray-200">
+                            <div className="mt-8 pt-6 border-t border-gray-500">
                                 <div className="flex justify-between items-center mb-3">
-                                    <h3 className="text-lg font-semibold text-gray-900">Course Progress</h3>
+                                    <h3 className="text-lg font-semibold text-white">Course Progress</h3>
                                     <span className="text-lg font-bold text-primary">{courseProgress.percentage}%</span>
                                 </div>
                                 <div className="w-full bg-gray-200 rounded-full h-3">
                                     <motion.div
                                         className="bg-gradient-to-r from-primary to-secondary h-3 rounded-full"
-                                        initial={{ width: 0 }}
-                                        animate={{ width: `${courseProgress.percentage}%` }}
-                                        transition={{ duration: 1, delay: 0.2 }}
+                                        initial={{width: 0}}
+                                        animate={{width: `${courseProgress.percentage}%`}}
+                                        transition={{duration: 1, delay: 0.2}}
                                     ></motion.div>
                                 </div>
-                                <div className="flex justify-between text-sm text-gray-600 mt-2">
+                                <div className="flex justify-between text-sm text-gray-400 mt-2">
                                     <span>{courseProgress.completed} lessons completed</span>
                                     <span>{courseProgress.total - courseProgress.completed} lessons remaining</span>
                                 </div>
@@ -341,13 +360,11 @@ export default function CourseOverview() {
                     </div>
 
 
-
-
                     {/* Course Curriculum */}
-                    <div className="bg-white rounded-xl shadow-sm border p-4 lg:p-6">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 lg:mb-6 gap-2">
-                            <h2 className="text-xl lg:text-2xl font-bold text-gray-900">Course Curriculum</h2>
-                            <p className="text-gray-600 text-sm">Click chapters to expand</p>
+                    <div className="bg-dots bg-fixed bg-center bg-cover rounded-xl shadow-sm border p-4 lg:p-6">
+                        <div className="flex flex-col mb-6 lg:mb-8 gap-2">
+                            <h2 className="text-xl lg:text-2xl font-bold text-white">Course Curriculum</h2>
+                            <p className="text-gray-400 text-sm">Click chapters to expand</p>
                         </div>
 
                         <div className="space-y-3">
@@ -357,15 +374,16 @@ export default function CourseOverview() {
                                 return (
                                     <div
                                         key={chapter.id}
-                                        className="border border-gray-200 rounded-lg overflow-hidden"
+                                        className="glass-white overflow-hidden"
                                     >
                                         {/* Chapter Header - Clickable */}
                                         <button
                                             onClick={() => toggleChapter(chapter.id)}
-                                            className="w-full bg-gray-50 hover:bg-gray-100 p-3 lg:p-4 text-left flex items-center justify-between transition-colors duration-200"
+                                            className="w-full p-3 lg:p-4 text-left flex items-center justify-between transition-colors duration-200"
                                         >
                                             <div className="flex items-center gap-2 lg:gap-3 min-w-0 flex-1">
-                                                <div className="w-6 h-6 lg:w-8 lg:h-8 bg-primary text-white rounded-full flex items-center justify-center text-xs lg:text-sm font-bold flex-shrink-0">
+                                                <div
+                                                    className="w-6 h-6 lg:w-8 lg:h-8 bg-primary text-white rounded-full flex items-center justify-center text-xs lg:text-sm font-bold flex-shrink-0">
                                                     {chapterIndex + 1}
                                                 </div>
                                                 <div className="min-w-0 flex-1">
@@ -375,9 +393,9 @@ export default function CourseOverview() {
                                             </div>
                                             <div className="flex-shrink-0 ml-2">
                                                 {isExpanded ? (
-                                                    <AiOutlineUp className="text-gray-500 text-sm lg:text-base" />
+                                                    <AiOutlineUp className="text-gray-500 text-sm lg:text-base"/>
                                                 ) : (
-                                                    <AiOutlineDown className="text-gray-500 text-sm lg:text-base" />
+                                                    <AiOutlineDown className="text-gray-500 text-sm lg:text-base"/>
                                                 )}
                                             </div>
                                         </button>
@@ -385,8 +403,8 @@ export default function CourseOverview() {
                                         {/* Lessons - Collapsible */}
                                         <motion.div
                                             initial={false}
-                                            animate={{ height: isExpanded ? 'auto' : 0 }}
-                                            transition={{ duration: 0.3 }}
+                                            animate={{height: isExpanded ? 'auto' : 0}}
+                                            transition={{duration: 0.3}}
                                             className="overflow-hidden"
                                         >
                                             <div className="p-3 lg:p-4 bg-gray-50 space-y-2">
@@ -397,17 +415,19 @@ export default function CourseOverview() {
                                                         <div
                                                             key={lesson.id}
                                                             className={`p-2 lg:p-3 rounded-lg border transition-colors duration-200 ${status === 'completed'
-                                                                    ? 'bg-green-50 border-green-200'
-                                                                    : status === 'next'
-                                                                        ? 'bg-primary/10 border-primary hover:border-primary/70'
-                                                                        : status === 'available'
-                                                                            ? 'bg-white border-blue-200 hover:border-blue-300'
-                                                                            : 'bg-gray-100 border-gray-200'
-                                                                }`}
+                                                                ? 'bg-green-50 border-green-200'
+                                                                : status === 'next'
+                                                                    ? 'bg-primary/10 border-primary hover:border-primary/70'
+                                                                    : status === 'available'
+                                                                        ? 'bg-white border-blue-200 hover:border-blue-300'
+                                                                        : 'bg-gray-100 border-gray-200'
+                                                            }`}
                                                         >
                                                             <div className="flex items-center justify-between gap-2">
-                                                                <div className="flex items-center gap-2 lg:gap-3 min-w-0 flex-1">
-                                                                    <div className={`w-5 h-5 lg:w-6 lg:h-6 rounded-full flex items-center justify-center flex-shrink-0 ${status === 'completed'
+                                                                <div
+                                                                    className="flex items-center gap-2 lg:gap-3 min-w-0 flex-1">
+                                                                    <div
+                                                                        className={`w-5 h-5 lg:w-6 lg:h-6 rounded-full flex items-center justify-center flex-shrink-0 ${status === 'completed'
                                                                             ? 'bg-green-500 text-white'
                                                                             : status === 'next'
                                                                                 ? 'bg-primary text-white'
@@ -416,30 +436,34 @@ export default function CourseOverview() {
                                                                                     : 'bg-gray-400 text-white'
                                                                         }`}>
                                                                         {status === 'completed' ? (
-                                                                            <AiOutlineCheck className="text-xs" />
+                                                                            <AiOutlineCheck className="text-xs"/>
                                                                         ) : status === 'available' || status === 'next' ? (
-                                                                            <AiOutlinePlayCircle className="text-xs" />
+                                                                            <AiOutlinePlayCircle className="text-xs"/>
                                                                         ) : (
-                                                                            <AiOutlineLock className="text-xs" />
+                                                                            <AiOutlineLock className="text-xs"/>
                                                                         )}
                                                                     </div>
                                                                     <div className="min-w-0 flex-1">
                                                                         <h4 className="font-medium text-gray-900 text-xs lg:text-sm truncate">
                                                                             {lesson.number}. {lesson.title}
                                                                         </h4>
-                                                                        <div className="flex items-center gap-1 lg:gap-2 text-xs text-gray-600">
+                                                                        <div
+                                                                            className="flex items-center gap-1 lg:gap-2 text-xs text-gray-600">
                                                                             {lesson.is_free_preview && (
-                                                                                <span className="bg-green-100 text-green-800 px-1 lg:px-2 py-1 rounded-full text-xs font-medium">
+                                                                                <span
+                                                                                    className="bg-green-100 text-green-800 px-1 lg:px-2 py-1 rounded-full text-xs font-medium">
                                                                                     FREE
                                                                                 </span>
                                                                             )}
                                                                             {status === 'completed' && (
-                                                                                <span className="bg-green-100 text-green-800 px-1 lg:px-2 py-1 rounded-full text-xs font-medium">
+                                                                                <span
+                                                                                    className="bg-green-100 text-green-800 px-1 lg:px-2 py-1 rounded-full text-xs font-medium">
                                                                                     COMPLETED
                                                                                 </span>
                                                                             )}
                                                                             {status === 'next' && (
-                                                                                <span className="bg-primary/20 text-primary px-1 lg:px-2 py-1 rounded-full text-xs font-medium">
+                                                                                <span
+                                                                                    className="bg-primary/20 text-primary px-1 lg:px-2 py-1 rounded-full text-xs font-medium">
                                                                                     NEXT LESSON
                                                                                 </span>
                                                                             )}
@@ -456,14 +480,14 @@ export default function CourseOverview() {
                                                                             className="btn btn-disabled btn-xs bg-gray-300 text-gray-600 border-gray-300"
                                                                             disabled
                                                                         >
-                                                                            <AiOutlineLock className="text-xs" />
+                                                                            <AiOutlineLock className="text-xs"/>
                                                                         </button>
                                                                     ) : status === 'completed' ? (
                                                                         <Link
                                                                             to={`/${course.slug}/${chapter.slug}/${lesson.number}`}
                                                                             className="btn btn-success btn-xs"
                                                                         >
-                                                                            <AiOutlineCheck className="text-xs" />
+                                                                            <AiOutlineCheck className="text-xs"/>
                                                                             Completed
                                                                         </Link>
                                                                     ) : status === 'next' ? (
@@ -471,7 +495,7 @@ export default function CourseOverview() {
                                                                             to={`/${course.slug}/${chapter.slug}/${lesson.number}`}
                                                                             className="btn btn-primary btn-xs"
                                                                         >
-                                                                            <AiOutlinePlayCircle className="text-xs" />
+                                                                            <AiOutlinePlayCircle className="text-xs"/>
                                                                             Next Lesson
                                                                         </Link>
                                                                     ) : status === 'available' ? (
@@ -479,7 +503,7 @@ export default function CourseOverview() {
                                                                             to={`/${course.slug}/${chapter.slug}/${lesson.number}`}
                                                                             className="btn btn-outline btn-xs"
                                                                         >
-                                                                            <AiOutlinePlayCircle className="text-xs" />
+                                                                            <AiOutlinePlayCircle className="text-xs"/>
                                                                             Start
                                                                         </Link>
                                                                     ) : (
@@ -487,7 +511,7 @@ export default function CourseOverview() {
                                                                             className="btn btn-disabled btn-xs bg-gray-400 text-gray-700 border-gray-400"
                                                                             disabled
                                                                         >
-                                                                            <AiOutlinePlayCircle className="text-xs" />
+                                                                            <AiOutlinePlayCircle className="text-xs"/>
                                                                             Start
                                                                         </button>
                                                                     )}

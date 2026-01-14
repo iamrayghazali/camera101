@@ -23,44 +23,60 @@
     --font-lato: "Lato", sans-serif;
     --font-rama: "Ramabhadra";
     --font-boldie: "Boldonse";
+    --font-baby: "Oooh Baby";
+    --font-salt: "Rock Salt", sans-serif;
 }
 
-.blured-bg{
-    background-image: url("./assets/images/bluredbg.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+.glass-white {
+    background: rgba(255, 255, 255, 0.76);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3.1px);
+    -webkit-backdrop-filter: blur(3.1px);
+    border: 1px solid rgba(255, 255, 255, 0.73);
 }
 
-#bg-img {
-    background-image: url("./assets/images/bg4.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+.glass-thick {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10.6px);
+    -webkit-backdrop-filter: blur(10.6px);
+    border: 1px solid rgba(255, 255, 255, 1);
 }
 
-.leaves-bg{
-    background-image: url('./assets/images/bg6.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+.glass-thin {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(1.8px);
+    -webkit-backdrop-filter: blur(1.8px);
 }
 
-.hollow-text {
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent; /* fallback */
+.bg-dots {
+    background-color: #000000;
+    opacity: 1;
+    background-image: radial-gradient(#404040 0.55px, #000000 0.55px);
+    background-size: 11px 11px;
 }
 
+.bg-wave {
+    background-color: #000000;
+    opacity: 1;
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #000000 35px ),
+    repeating-linear-gradient( #40404055, #404040 );
+}
+
+.bg-lines {
+    background-color: #000000;
+    opacity: 1;
+    background: repeating-linear-gradient( 45deg, #131313, #131313 5px, #000000 5px, #000000 25px );
+}
 
 html{
     margin: 0px;
     padding: 0px;
 }
-
-/** {
-    outline: 1px solid red;
-}*/
 
 body {
     margin: 0;
@@ -71,7 +87,25 @@ body {
     overflow-x: hidden;
 }
 
-/* Simple, clean hover effects */
+.gradient {
+    background: linear-gradient(-45deg, #3A67B0, #001F51, #85043A);
+    background-size: 400% 400%;
+    animation: gradient 4s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
 .hover-lift {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }

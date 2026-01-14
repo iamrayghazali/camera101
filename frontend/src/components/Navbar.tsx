@@ -7,6 +7,19 @@ import { AiFillHome } from "react-icons/ai";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { MdOutlinePhoneIphone } from "react-icons/md";
 
+// Animation variants
+const fadeDown = {
+    initial: { opacity: 0, y: -60 },
+    animate: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.8,
+            ease: [0.25, 0.1, 0.25, 1], // smooth ease curve
+            delay: 0.3
+        }
+    }
+};
 
 const navItems = [
   { label: "Home", to: "/", icon:  <AiFillHome className="text-2xl mr-2" />},
@@ -23,11 +36,16 @@ export default function Navbar() {
 
   return (
     <nav className={`${isHomePage ? 'bg-transparent' : 'bg-white'} backdrop-blur-sm absolute top-0 left-0 w-full z-50 shadow-sm`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div
+          initial="initial"
+          animate="animate"
+          variants={fadeDown}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="flex items-center justify-between h-16">
 
-          <Link to="/" className={`text-3xl font-rama ${isHomePage ? 'text-primary drop-shadow-lg' : 'text-slate-800'}`}>
-            CAMERA101
+          <Link to="/" className={`text-3xl font-baby ${isHomePage ? 'text-primary drop-shadow-lg' : 'text-slate-800'}`}>
+            LEARN CAMERA
           </Link>
 
           {/* Desktop */}
@@ -46,7 +64,7 @@ export default function Navbar() {
                   <Link
                       to={"/"}
                       onClick={() => logout()}
-                      className={`text-lg font-rama font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 ${isHomePage ? 'text-white after:bg-white' : 'hollow-text text-extrabold leaves-bg after:bg-black'}`}
+                      className={`text-lg font-rama font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 ${isHomePage ? 'text-white after:bg-white' : 'text-black after:bg-black'}`}
                   >
                       Logout
                   </Link>
@@ -54,7 +72,7 @@ export default function Navbar() {
                   <>
                       <Link
                           to={"/register"}
-                          className={`text-xl font-rama font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 ${isHomePage ? 'text-white after:bg-white' : 'after:bg-black'}`}
+                          className={`text-xl font-rama font-bold relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 ${isHomePage ? 'text-white after:bg-white' : 'text-black after:bg-black'}`}
                       >
                           Register
                       </Link>
@@ -90,7 +108,7 @@ export default function Navbar() {
             />
           </button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
